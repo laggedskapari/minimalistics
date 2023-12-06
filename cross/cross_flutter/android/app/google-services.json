@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "526998331555",
+    "project_id": "cross-laggedskapari",
+    "storage_bucket": "cross-laggedskapari.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526998331555:android:7d446b8c0f2d06c78fdf16",
+        "android_client_info": {
+          "package_name": "com.example.cross_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-9irS0FE29KHMd1uSMlX8girMcj4uAcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
