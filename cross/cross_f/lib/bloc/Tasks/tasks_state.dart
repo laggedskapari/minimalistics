@@ -5,15 +5,16 @@ abstract class TasksState extends Equatable {
 }
 
 class TasksInitial extends TasksState {
+  late final List<Task> tasks;
   @override
-  List<Object> get props => [];
+  List<Object> get props => [tasks];
 }
 
 class TasksLoadedState extends TasksState {
 
-  final Future<List<Task>> tasks;
+   final List<Task> tasks;
 
-  const TasksLoadedState(this.tasks);
+   const TasksLoadedState(this.tasks);
 
 
   @override

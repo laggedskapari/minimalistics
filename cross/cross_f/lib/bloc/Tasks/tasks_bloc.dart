@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -14,16 +12,19 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
 
 
   TasksBloc(this._taskServices) : super(TasksInitial()) {
-    on<LoadTasksEvent>((event, emit){
+    on<LoadTasksEvent>((event, emit) async {
       final tasks = _taskServices.loadAllTasks();
-      print('Event is called.');
-      emit(TasksLoadedState(tasks));
+      List<Task> listOFTasks = await tasks;
+      emit(TasksLoadedState(listOFTasks));
     });
 
-    on<CreateNewTaskEvent>((event, emit) {
-      _taskServices.createNewTask(title: event.taskTitle);
-      final tasks = _taskServices.loadAllTasks();
-      emit(TasksLoadedState(tasks));
+    on<CreateNewTaskEvent>((event, emit) async {
+      await _taskServices.createNewTask(title: event.taskTitle);
+      add(LoadTasksEvent());
+    });
+    
+    on<CrossTaskEvent>((event, emit) async {
+      await _taskServices.crossTask(id: event.taskId);
       add(LoadTasksEvent());
     });
   }
