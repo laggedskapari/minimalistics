@@ -1,5 +1,4 @@
 import 'package:cross_f/bloc/Tasks/tasks_bloc.dart';
-import 'package:cross_f/services/task_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,6 +21,7 @@ class _CreateTaskCardState extends State<CreateTaskCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
       height: 70,
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
       child: Row(

@@ -27,5 +27,15 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
       await _taskServices.crossTask(id: event.taskId);
       add(LoadTasksEvent());
     });
+
+    on<UnCrossTaskEvent>((event, emit) async {
+      await _taskServices.unCrossTask(id: event.taskId);
+      add(LoadTasksEvent());
+    });
+
+    on<ToggleTaskImportanceEvent>((event, emit) async {
+      await _taskServices.toggleTaskImportance(id: event.taskId);
+      add(LoadTasksEvent());
+    });
   }
 }

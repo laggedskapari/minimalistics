@@ -23,7 +23,7 @@ class TaskServices {
   Future<List<Task>> loadAllTasks() async {
     final Isar dbInstance = await _db;
     final tasks =
-        await dbInstance.tasks.where(sort: Sort.desc).anyIsarId().findAll();
+        await dbInstance.tasks.where().sortByIsImportantDesc().findAll();
     return tasks;
   }
 
@@ -54,7 +54,6 @@ class TaskServices {
         await dbInstance.tasks.filter().idEqualTo(id).findFirst();
     if (task != null) {
       await dbInstance.writeTxn(() async {
-        print('done with this step');
         task.isCompleted = true;
         await dbInstance.tasks.put(task);
       });
@@ -67,11 +66,29 @@ class TaskServices {
         await dbInstance.tasks.filter().idEqualTo(id).findFirst();
     if (task != null) {
       await dbInstance.writeTxn(() async {
-        print('this is setup is also done.');
         task.isCompleted = false;
+        print('this is called');
         await dbInstance.tasks.put(task);
       });
     }
   }
-}
 
+  Future<void> toggleTaskImportance({required String id}) async {
+    final dbInstance = await _db;
+    final Task? task =
+        await dbInstance.tasks.filter().idEqualTo(id).findFirst();
+    if (task != null) {
+      await dbInstance.writeTxn(() async {
+        task.isImportant = !task.isImportant!;
+        await dbInstance.tasks.put(task);
+      });
+    }
+  }
+
+  Future<void> clearAllTasks() async {
+    final dbInstance = await _db;
+    await dbInstance.writeTxn(() async {
+      await dbInstance.tasks.filter().isImportantEqualTo(false).deleteAll();
+    });
+  }
+}

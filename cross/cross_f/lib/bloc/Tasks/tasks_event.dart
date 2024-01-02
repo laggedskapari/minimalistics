@@ -26,10 +26,20 @@ class CrossTaskEvent extends TasksEvent {
   @override
   List<Object?> get props => [taskId];
 }
+
 class UnCrossTaskEvent extends TasksEvent {
   final String taskId;
 
   const UnCrossTaskEvent({required this.taskId});
+
+  @override
+  List<Object?> get props => [taskId];
+}
+
+class ToggleTaskImportanceEvent extends TasksEvent {
+  final String taskId;
+
+  const ToggleTaskImportanceEvent({required this.taskId});
 
   @override
   List<Object?> get props => [taskId];

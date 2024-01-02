@@ -1,5 +1,4 @@
 import 'package:cross_f/bloc/Tasks/tasks_bloc.dart';
-import 'package:cross_f/utils/cross_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,10 +16,13 @@ class TaskCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: Row(
         children: [
-          Icon(
-            Icons.double_arrow,
-            color: Theme.of(context).colorScheme.primary,
-            size: 20,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5), 
+            child: Icon(
+              Icons.double_arrow,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
+            ),
           ),
           BlocBuilder<TasksBloc, TasksState>(
             builder: (context, state) {
@@ -34,6 +36,10 @@ class TaskCard extends StatelessWidget {
                     BlocProvider.of<TasksBloc>(context)
                         .add(CrossTaskEvent(taskId: task.id));
                   }
+                },
+                onDoubleTap: () {
+                  BlocProvider.of<TasksBloc>(context)
+                      .add(UnCrossTaskEvent(taskId: task.id));
                 },
                 child: Text(
                   task.taskTitle,
