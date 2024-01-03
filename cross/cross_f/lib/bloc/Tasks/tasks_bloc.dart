@@ -15,6 +15,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     on<LoadTasksEvent>((event, emit) async {
       final tasks = _taskServices.loadAllTasks();
       List<Task> listOFTasks = await tasks;
+      await _taskServices.clearAllOlderTasks();
       emit(TasksLoadedState(listOFTasks));
     });
 
@@ -35,6 +36,11 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
 
     on<ToggleTaskImportanceEvent>((event, emit) async {
       await _taskServices.toggleTaskImportance(id: event.taskId);
+      add(LoadTasksEvent());
+    });
+
+    on<DeleteOldTasksEvent>((event, emit) async {
+      await _taskServices.clearAllOlderTasks();
       add(LoadTasksEvent());
     });
   }

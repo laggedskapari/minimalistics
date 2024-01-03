@@ -44,3 +44,8 @@ class ToggleTaskImportanceEvent extends TasksEvent {
   @override
   List<Object?> get props => [taskId];
 }
+
+class DeleteOldTasksEvent extends TasksEvent {
+  @override
+  List<Object?> get props => [];
+}

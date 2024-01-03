@@ -32,7 +32,7 @@ class TaskServices {
     const uuid = Uuid();
     await dbInstance.writeTxn(() async {
       final task = Task(
-          id: uuid.v4(), taskTitle: title, createdTimeStamp: DateTime.now());
+          id: uuid.v4(), taskTitle: title, createdTimeStamp: DateTime.now().day);
       await dbInstance.tasks.put(task);
     });
   }
@@ -67,7 +67,6 @@ class TaskServices {
     if (task != null) {
       await dbInstance.writeTxn(() async {
         task.isCompleted = false;
-        print('this is called');
         await dbInstance.tasks.put(task);
       });
     }
@@ -79,10 +78,18 @@ class TaskServices {
         await dbInstance.tasks.filter().idEqualTo(id).findFirst();
     if (task != null) {
       await dbInstance.writeTxn(() async {
-        task.isImportant = !task.isImportant!;
+        task.isImportant = !task.isImportant;
         await dbInstance.tasks.put(task);
       });
     }
+  }
+
+  Future<void> clearAllOlderTasks() async {
+    final dbInstance = await _db;
+    await dbInstance.tasks.where().sortByIsImportantDesc().findAll();
+    dbInstance.writeTxn(() async {
+      await dbInstance.tasks.filter().not().createdTimeStampEqualTo(DateTime.now().day).deleteAll();
+    });
   }
 
   Future<void> clearAllTasks() async {

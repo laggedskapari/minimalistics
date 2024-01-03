@@ -7,9 +7,9 @@ class Task {
   Id isarId = Isar.autoIncrement;
   String id;
   String taskTitle;
-  bool? isCompleted;
-  bool? isImportant;
-  DateTime? createdTimeStamp;
+  bool isCompleted;
+  bool isImportant;
+  int createdTimeStamp;
   DateTime? completedTimeStamp;
 
   Task({

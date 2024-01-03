@@ -25,7 +25,7 @@ const TaskSchema = CollectionSchema(
     r'createdTimeStamp': PropertySchema(
       id: 1,
       name: r'createdTimeStamp',
-      type: IsarType.dateTime,
+      type: IsarType.long,
     ),
     r'id': PropertySchema(
       id: 2,
@@ -80,7 +80,7 @@ void _taskSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeDateTime(offsets[0], object.completedTimeStamp);
-  writer.writeDateTime(offsets[1], object.createdTimeStamp);
+  writer.writeLong(offsets[1], object.createdTimeStamp);
   writer.writeString(offsets[2], object.id);
   writer.writeBool(offsets[3], object.isCompleted);
   writer.writeBool(offsets[4], object.isImportant);
@@ -94,10 +94,10 @@ Task _taskDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Task(
-    createdTimeStamp: reader.readDateTimeOrNull(offsets[1]),
+    createdTimeStamp: reader.readLong(offsets[1]),
     id: reader.readString(offsets[2]),
-    isCompleted: reader.readBoolOrNull(offsets[3]),
-    isImportant: reader.readBoolOrNull(offsets[4]),
+    isCompleted: reader.readBoolOrNull(offsets[3]) ?? false,
+    isImportant: reader.readBoolOrNull(offsets[4]) ?? false,
     taskTitle: reader.readString(offsets[5]),
   );
   object.completedTimeStamp = reader.readDateTimeOrNull(offsets[0]);
@@ -115,13 +115,13 @@ P _taskDeserializeProp<P>(
     case 0:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 1:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 2:
       return (reader.readString(offset)) as P;
     case 3:
-      return (reader.readBoolOrNull(offset)) as P;
+      return (reader.readBoolOrNull(offset) ?? false) as P;
     case 4:
-      return (reader.readBoolOrNull(offset)) as P;
+      return (reader.readBoolOrNull(offset) ?? false) as P;
     case 5:
       return (reader.readString(offset)) as P;
     default:
@@ -287,24 +287,8 @@ extension TaskQueryFilter on QueryBuilder<Task, Task, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Task, Task, QAfterFilterCondition> createdTimeStampIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'createdTimeStamp',
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterFilterCondition> createdTimeStampIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'createdTimeStamp',
-      ));
-    });
-  }
-
   QueryBuilder<Task, Task, QAfterFilterCondition> createdTimeStampEqualTo(
-      DateTime? value) {
+      int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'createdTimeStamp',
@@ -314,7 +298,7 @@ extension TaskQueryFilter on QueryBuilder<Task, Task, QFilterCondition> {
   }
 
   QueryBuilder<Task, Task, QAfterFilterCondition> createdTimeStampGreaterThan(
-    DateTime? value, {
+    int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -327,7 +311,7 @@ extension TaskQueryFilter on QueryBuilder<Task, Task, QFilterCondition> {
   }
 
   QueryBuilder<Task, Task, QAfterFilterCondition> createdTimeStampLessThan(
-    DateTime? value, {
+    int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -340,8 +324,8 @@ extension TaskQueryFilter on QueryBuilder<Task, Task, QFilterCondition> {
   }
 
   QueryBuilder<Task, Task, QAfterFilterCondition> createdTimeStampBetween(
-    DateTime? lower,
-    DateTime? upper, {
+    int lower,
+    int upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -484,24 +468,8 @@ extension TaskQueryFilter on QueryBuilder<Task, Task, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Task, Task, QAfterFilterCondition> isCompletedIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'isCompleted',
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterFilterCondition> isCompletedIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'isCompleted',
-      ));
-    });
-  }
-
   QueryBuilder<Task, Task, QAfterFilterCondition> isCompletedEqualTo(
-      bool? value) {
+      bool value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'isCompleted',
@@ -510,24 +478,8 @@ extension TaskQueryFilter on QueryBuilder<Task, Task, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Task, Task, QAfterFilterCondition> isImportantIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'isImportant',
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterFilterCondition> isImportantIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'isImportant',
-      ));
-    });
-  }
-
   QueryBuilder<Task, Task, QAfterFilterCondition> isImportantEqualTo(
-      bool? value) {
+      bool value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'isImportant',
@@ -936,7 +888,7 @@ extension TaskQueryProperty on QueryBuilder<Task, Task, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Task, DateTime?, QQueryOperations> createdTimeStampProperty() {
+  QueryBuilder<Task, int, QQueryOperations> createdTimeStampProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'createdTimeStamp');
     });
@@ -948,13 +900,13 @@ extension TaskQueryProperty on QueryBuilder<Task, Task, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Task, bool?, QQueryOperations> isCompletedProperty() {
+  QueryBuilder<Task, bool, QQueryOperations> isCompletedProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isCompleted');
     });
   }
 
-  QueryBuilder<Task, bool?, QQueryOperations> isImportantProperty() {
+  QueryBuilder<Task, bool, QQueryOperations> isImportantProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isImportant');
     });

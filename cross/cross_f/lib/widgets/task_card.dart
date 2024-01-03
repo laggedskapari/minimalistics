@@ -1,5 +1,6 @@
 import 'package:cross_f/bloc/Tasks/tasks_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../model/task.dart';
@@ -17,7 +18,7 @@ class TaskCard extends StatelessWidget {
       child: Row(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5), 
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Icon(
               Icons.double_arrow,
               color: Theme.of(context).colorScheme.primary,
@@ -41,6 +42,12 @@ class TaskCard extends StatelessWidget {
                   BlocProvider.of<TasksBloc>(context)
                       .add(UnCrossTaskEvent(taskId: task.id));
                 },
+                onLongPress: (){
+                  if(!task.isCompleted!){
+                    BlocProvider.of<TasksBloc>(context).add(ToggleTaskImportanceEvent(taskId: task.id));
+                    HapticFeedback.vibrate();
+                  }
+                },
                 child: Text(
                   task.taskTitle,
                   style: TextStyle(
@@ -54,6 +61,8 @@ class TaskCard extends StatelessWidget {
                     decoration: task.isCompleted!
                         ? TextDecoration.lineThrough
                         : TextDecoration.none,
+                    decorationColor: const Color.fromARGB(255, 100, 102, 105),
+                    decorationThickness: 3,
                   ),
                 ),
               );
