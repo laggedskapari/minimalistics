@@ -1,9 +1,11 @@
 import 'package:isar/isar.dart';
 
+part 'task_list.g.dart';
+
 @collection
 class TaskList {
   Id id = Isar.autoIncrement;
-  String taskListId;
+  final String taskListId;
   String taskListTitle;
   int completedTasks;
 

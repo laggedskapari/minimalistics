@@ -1,6 +1,8 @@
 import 'package:cross_v2/data/task_list.dart';
 import 'package:isar/isar.dart';
 
+part 'task.g.dart';
+
 @collection
 class Task {
   Id id = Isar.autoIncrement;
