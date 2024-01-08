@@ -25,7 +25,7 @@ final crossBlue = ThemeData(
       fontSize: 19,
       fontFamily: 'JetBrainsMono',
       fontWeight: FontWeight.bold,
-      color: Color.fromARGB(255, 75, 89, 117),
+      color: Color.fromARGB(255, 35, 169, 213),
     ),
     bodyMedium: TextStyle(
       fontSize: 19,
