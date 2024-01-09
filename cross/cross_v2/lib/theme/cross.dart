@@ -33,7 +33,7 @@ final crossBlue = ThemeData(
       color: Color.fromARGB(255, 75, 89, 117),
     ),
     labelSmall: TextStyle(
-      fontSize: 12,
+      fontSize: 15,
       fontFamily: 'JetBrainsMono',
       fontWeight: FontWeight.bold,
       color: Color.fromARGB(255, 75, 89, 117),
