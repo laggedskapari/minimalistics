@@ -12,7 +12,7 @@ class CrossAppBar extends StatelessWidget implements PreferredSizeWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: SafeArea(
         child: SizedBox(
-          height: 100,
+          height: 80,
           child: Column(
             children: [
               Text(
