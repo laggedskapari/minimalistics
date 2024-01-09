@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_string_interpolations
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -79,7 +77,7 @@ class _CrossNavigationBarState extends State<CrossNavigationBar> {
                           width: displayWidth * .06,
                         ),
                         Text(
-                          '${listOfStrings[index]}',
+                          listOfStrings[index],
                           style: TextStyle(
                             fontSize: 15,
                             fontFamily: 'JetBrainsMono',

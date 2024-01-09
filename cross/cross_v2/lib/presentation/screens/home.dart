@@ -3,6 +3,7 @@ import 'package:cross_v2/presentation/widgets/cross_app_bar.dart';
 import 'package:cross_v2/presentation/widgets/cross_navigation_bar.dart';
 import 'package:cross_v2/presentation/widgets/new_task_form.dart';
 import 'package:cross_v2/presentation/widgets/synopsis_card.dart';
+import 'package:cross_v2/presentation/widgets/task_list_card.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -14,7 +15,7 @@ class Home extends StatelessWidget {
       appBar: const CrossAppBar(),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: const Center(
-        child: CrossNavigationBar(),
+        child: TaskListCard(),
       ),
       bottomNavigationBar: const CrossNavigationBar(),
     );
