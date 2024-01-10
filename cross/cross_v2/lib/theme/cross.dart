@@ -9,7 +9,7 @@ final crossBlue = ThemeData(
     onSecondary: Color.fromARGB(255, 255, 255, 255),
     error: Color.fromARGB(255, 184, 27, 44),
     onError: Color.fromARGB(255, 255, 255, 255),
-    background: Color.fromARGB(255, 50, 52, 55),
+    background: Color.fromARGB(255, 24, 24, 24),
     onBackground: Color.fromARGB(255, 75, 89, 117),
     surface: Color.fromARGB(255, 50, 52, 55),
     onSurface: Color.fromARGB(255, 75, 89, 117),
