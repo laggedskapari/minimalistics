@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-final crossBlue = ThemeData(
+final crossYellow = ThemeData(
   colorScheme: const ColorScheme(
     brightness: Brightness.dark,
     primary: Color.fromARGB(255, 226, 183, 20),
     onPrimary: Color.fromARGB(255, 255, 255, 255),
-    secondary: Color.fromARGB(255, 75, 89, 117),
+    secondary: Color.fromARGB(255, 100, 102, 105),
     onSecondary: Color.fromARGB(255, 255, 255, 255),
     error: Color.fromARGB(255, 184, 27, 44),
     onError: Color.fromARGB(255, 255, 255, 255),
@@ -30,7 +30,7 @@ final crossBlue = ThemeData(
     bodyMedium: TextStyle(
       fontSize: 19,
       fontFamily: 'JetBrainsMono',
-      color: Color.fromARGB(255, 75, 89, 117),
+      color: Color.fromARGB(255, 100, 102, 105),
     ),
     labelSmall: TextStyle(
       fontSize: 12,

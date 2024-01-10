@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CrossNavigationBar extends StatefulWidget {
-  const CrossNavigationBar({super.key});
+  const CrossNavigationBar({super.key, required this.changeHomePage});
+
+  final void Function(int index) changeHomePage;
 
   @override
   State<CrossNavigationBar> createState() => _CrossNavigationBarState();
@@ -37,6 +39,7 @@ class _CrossNavigationBarState extends State<CrossNavigationBar> {
           onTap: () {
             setState(() {
               currentIndex = index;
+              widget.changeHomePage(index);
               HapticFeedback.lightImpact();
             });
           },
@@ -82,7 +85,9 @@ class _CrossNavigationBarState extends State<CrossNavigationBar> {
                             fontSize: 15,
                             fontFamily: 'JetBrainsMono',
                             fontWeight: FontWeight.bold,
-                            color: index == currentIndex ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.secondary,
+                            color: index == currentIndex
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                       ],

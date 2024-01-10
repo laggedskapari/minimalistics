@@ -10,14 +10,16 @@ class TaskListConfCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TaskListBloc, TaskListState>(builder: (context, state) {
       if (state is TaskListsLoadedState) {
-        return ListView.builder(
-          itemBuilder: (context, index) => Dismissible(
-            key: UniqueKey(),
-            child: TaskListCard(
-              tasklist: state.taskLists[index],
+        return Expanded(
+          child: ListView.builder(
+            itemBuilder: (context, index) => Dismissible(
+              key: UniqueKey(),
+              child: TaskListCard(
+                tasklist: state.taskLists[index],
+              ),
             ),
+            itemCount: state.taskLists.length,
           ),
-          itemCount: state.taskLists.length,
         );
       }
       return const CircularProgressIndicator();
