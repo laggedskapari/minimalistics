@@ -1,60 +1,39 @@
 import 'package:cross_v2/data/task_list.dart';
-import 'package:cross_v2/presentation/widgets/task_card.dart';
+import 'package:cross_v2/domain/bloc/TaskList/task_list_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TaskListCard extends StatelessWidget {
-  const TaskListCard({super.key, required this.taskList});
+  const TaskListCard({super.key, required this.tasklist});
 
-  final TaskList taskList;
+  final TaskList tasklist;
 
   @override
   Widget build(BuildContext context) {
-    double displayWidth = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: displayWidth * .10),
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 2,
-          color: Theme.of(context).colorScheme.secondary,
-        ),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      child: Row(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8.0),
-            child: Text(
-              taskList.taskListTitle,
-              style: Theme.of(context).textTheme.titleLarge,
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Icon(
+              Icons.double_arrow,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
-              taskList.taskListDescription,
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(
-                  '//TOTAL: 10',
-                  style: Theme.of(context).textTheme.labelSmall,
+          BlocBuilder<TaskListBloc, TaskListState>(
+            builder: (context, state) {
+              return Text(
+                tasklist.taskListTitle,
+                style: TextStyle(
+                  fontFamily: 'JetBrainsMono',
+                  fontSize: 20,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(
-                  '//COMPLETED: ${taskList.completedTasks}',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ),
-            ],
+              );
+            },
           ),
-          const TaskCard(),
         ],
       ),
     );

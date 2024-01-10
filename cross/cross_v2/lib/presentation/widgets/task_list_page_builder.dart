@@ -1,5 +1,5 @@
 import 'package:cross_v2/domain/bloc/TaskList/task_list_bloc.dart';
-import 'package:cross_v2/presentation/widgets/task_list_card.dart';
+import 'package:cross_v2/presentation/widgets/task_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +32,7 @@ class _TaskListPageBuilderState extends State<TaskListPageBuilder> {
                   });
                 },
                 itemBuilder: (BuildContext context, int index) {
-                  return TaskListCard(
+                  return TaskListPage(
                     taskList: state.taskLists[index],
                   );
                 },

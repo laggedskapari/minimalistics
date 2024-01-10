@@ -22,18 +22,13 @@ const TaskListSchema = CollectionSchema(
       name: r'completedTasks',
       type: IsarType.long,
     ),
-    r'taskListDescription': PropertySchema(
-      id: 1,
-      name: r'taskListDescription',
-      type: IsarType.string,
-    ),
     r'taskListId': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'taskListId',
       type: IsarType.string,
     ),
     r'taskListTitle': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'taskListTitle',
       type: IsarType.string,
     )
@@ -58,7 +53,6 @@ int _taskListEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.taskListDescription.length * 3;
   bytesCount += 3 + object.taskListId.length * 3;
   bytesCount += 3 + object.taskListTitle.length * 3;
   return bytesCount;
@@ -71,9 +65,8 @@ void _taskListSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeLong(offsets[0], object.completedTasks);
-  writer.writeString(offsets[1], object.taskListDescription);
-  writer.writeString(offsets[2], object.taskListId);
-  writer.writeString(offsets[3], object.taskListTitle);
+  writer.writeString(offsets[1], object.taskListId);
+  writer.writeString(offsets[2], object.taskListTitle);
 }
 
 TaskList _taskListDeserialize(
@@ -84,9 +77,8 @@ TaskList _taskListDeserialize(
 ) {
   final object = TaskList(
     completedTasks: reader.readLongOrNull(offsets[0]) ?? 0,
-    taskListDescription: reader.readString(offsets[1]),
-    taskListId: reader.readString(offsets[2]),
-    taskListTitle: reader.readString(offsets[3]),
+    taskListId: reader.readString(offsets[1]),
+    taskListTitle: reader.readString(offsets[2]),
   );
   object.id = id;
   return object;
@@ -104,8 +96,6 @@ P _taskListDeserializeProp<P>(
     case 1:
       return (reader.readString(offset)) as P;
     case 2:
-      return (reader.readString(offset)) as P;
-    case 3:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -304,142 +294,6 @@ extension TaskListQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskList, TaskList, QAfterFilterCondition>
-      taskListDescriptionEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'taskListDescription',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskList, TaskList, QAfterFilterCondition>
-      taskListDescriptionGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'taskListDescription',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskList, TaskList, QAfterFilterCondition>
-      taskListDescriptionLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'taskListDescription',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskList, TaskList, QAfterFilterCondition>
-      taskListDescriptionBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'taskListDescription',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskList, TaskList, QAfterFilterCondition>
-      taskListDescriptionStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'taskListDescription',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskList, TaskList, QAfterFilterCondition>
-      taskListDescriptionEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'taskListDescription',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskList, TaskList, QAfterFilterCondition>
-      taskListDescriptionContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'taskListDescription',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskList, TaskList, QAfterFilterCondition>
-      taskListDescriptionMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'taskListDescription',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskList, TaskList, QAfterFilterCondition>
-      taskListDescriptionIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'taskListDescription',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<TaskList, TaskList, QAfterFilterCondition>
-      taskListDescriptionIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'taskListDescription',
-        value: '',
       ));
     });
   }
@@ -729,19 +583,6 @@ extension TaskListQuerySortBy on QueryBuilder<TaskList, TaskList, QSortBy> {
     });
   }
 
-  QueryBuilder<TaskList, TaskList, QAfterSortBy> sortByTaskListDescription() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'taskListDescription', Sort.asc);
-    });
-  }
-
-  QueryBuilder<TaskList, TaskList, QAfterSortBy>
-      sortByTaskListDescriptionDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'taskListDescription', Sort.desc);
-    });
-  }
-
   QueryBuilder<TaskList, TaskList, QAfterSortBy> sortByTaskListId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'taskListId', Sort.asc);
@@ -793,19 +634,6 @@ extension TaskListQuerySortThenBy
     });
   }
 
-  QueryBuilder<TaskList, TaskList, QAfterSortBy> thenByTaskListDescription() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'taskListDescription', Sort.asc);
-    });
-  }
-
-  QueryBuilder<TaskList, TaskList, QAfterSortBy>
-      thenByTaskListDescriptionDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'taskListDescription', Sort.desc);
-    });
-  }
-
   QueryBuilder<TaskList, TaskList, QAfterSortBy> thenByTaskListId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'taskListId', Sort.asc);
@@ -839,14 +667,6 @@ extension TaskListQueryWhereDistinct
     });
   }
 
-  QueryBuilder<TaskList, TaskList, QDistinct> distinctByTaskListDescription(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'taskListDescription',
-          caseSensitive: caseSensitive);
-    });
-  }
-
   QueryBuilder<TaskList, TaskList, QDistinct> distinctByTaskListId(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -874,13 +694,6 @@ extension TaskListQueryProperty
   QueryBuilder<TaskList, int, QQueryOperations> completedTasksProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'completedTasks');
-    });
-  }
-
-  QueryBuilder<TaskList, String, QQueryOperations>
-      taskListDescriptionProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'taskListDescription');
     });
   }
 

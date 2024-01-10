@@ -18,4 +18,4 @@ class TaskListsLoadedState extends TaskListState {
 
   @override
   List<Object?> get props => [taskLists];
-} 
+}
