@@ -1,7 +1,10 @@
+import 'package:cross_v2/data/task.dart';
 import 'package:flutter/material.dart';
 
 class TaskCard extends StatelessWidget {
-  const TaskCard({super.key});
+  const TaskCard({super.key, required this.task});
+
+  final Task task;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class TaskCard extends StatelessWidget {
             onDoubleTap: () {},
             onLongPress: () {},
             child: Text(
-              'complete this app mate.',
+              task.taskTitle,
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),

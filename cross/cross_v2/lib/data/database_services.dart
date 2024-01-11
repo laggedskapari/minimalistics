@@ -52,22 +52,31 @@ class DatabaseServices {
   }
   //Task Services
 
-  Future<List<Task>> loadAllTasks() async {
+  Future<List<Task>> loadAllTasks({required int taskList}) async {
     final Isar dbInstance = await _db;
-    final tasks =
-        await dbInstance.tasks.where().sortByIsImportantDesc().findAll();
+    final tasks = await dbInstance.tasks
+        .filter()
+        .taskListEqualTo(taskList)
+        .sortByIsImportantDesc()
+        .findAll();
     return tasks;
   }
 
-  Future<void> createNewTask({required String id}) async {
+  Future<void> createNewTask({
+    required String taskTitle,
+    required int taskList,
+  }) async {
     final Isar dbInstance = await _db;
-    final Task? task =
-        await dbInstance.tasks.filter().idEqualTo(id as Id).findFirst();
-    if (task != null) {
-      dbInstance.writeTxn(() async {
-        await dbInstance.tasks.put(task);
-      });
-    }
+    const uuid = Uuid();
+    final Task task = Task(
+      taskId: uuid.v4(),
+      taskTitle: taskTitle,
+      taskList: taskList,
+      createdDateTime: DateTime.now().day,
+    );
+    dbInstance.writeTxn(() async {
+      await dbInstance.tasks.put(task);
+    });
   }
 
   Future<void> deleteTask({required String id}) async {

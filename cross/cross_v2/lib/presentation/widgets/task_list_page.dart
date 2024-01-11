@@ -1,6 +1,10 @@
+import 'package:cross_v2/data/database_services.dart';
 import 'package:cross_v2/data/task_list.dart';
-import 'package:cross_v2/presentation/widgets/task_card.dart';
+import 'package:cross_v2/domain/bloc/Task/task_bloc.dart';
+import 'package:cross_v2/presentation/widgets/new_task_form.dart';
+import 'package:cross_v2/presentation/widgets/tasks_list_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TaskListPage extends StatelessWidget {
   const TaskListPage({super.key, required this.taskList});
@@ -11,7 +15,8 @@ class TaskListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double displayWidth = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: displayWidth * .10),
+      margin:
+          EdgeInsets.fromLTRB(displayWidth * .05, 0, displayWidth * .05, 10),
       decoration: BoxDecoration(
         border: Border.all(
           width: 2,
@@ -34,7 +39,7 @@ class TaskListPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text(
-                  '//TOTAL: 10',
+                  '//TOTAL: ${taskList.id}',
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ),
@@ -47,7 +52,6 @@ class TaskListPage extends StatelessWidget {
               ),
             ],
           ),
-          const TaskCard(),
         ],
       ),
     );

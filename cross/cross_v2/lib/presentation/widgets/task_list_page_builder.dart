@@ -1,4 +1,6 @@
 import 'package:cross_v2/domain/bloc/TaskList/task_list_bloc.dart';
+import 'package:cross_v2/presentation/widgets/new_task_form.dart';
+import 'package:cross_v2/presentation/widgets/new_task_list_form.dart';
 import 'package:cross_v2/presentation/widgets/task_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +16,7 @@ class TaskListPageBuilder extends StatefulWidget {
 
 class _TaskListPageBuilderState extends State<TaskListPageBuilder> {
   int activePage = 0;
+  int taskListId = 0;
   @override
   Widget build(BuildContext context) {
     final controller = PageController();
@@ -29,6 +32,8 @@ class _TaskListPageBuilderState extends State<TaskListPageBuilder> {
                   setState(() {
                     activePage = page;
                     HapticFeedback.mediumImpact();
+                    taskListId = state.taskLists[page].id;
+                    print(taskListId);
                   });
                 },
                 itemBuilder: (BuildContext context, int index) {
@@ -47,6 +52,9 @@ class _TaskListPageBuilderState extends State<TaskListPageBuilder> {
                 dotWidth: 10,
                 dotHeight: 10,
               ),
+            ),
+            NewTaskForm(
+              taskList: taskListId,
             ),
           ],
         );

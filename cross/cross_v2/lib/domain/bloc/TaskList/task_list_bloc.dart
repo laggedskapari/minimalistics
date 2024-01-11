@@ -13,12 +13,6 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
 
   TaskListBloc(this._databaseServices) : super(TaskListInitial()) {
     on<LoadTaskListsEvent>((event, emit) async {
-      await _databaseServices.createNewTaskList(
-        taskListTitle: 'WORK',
-      );
-      await _databaseServices.createNewTaskList(
-        taskListTitle: 'PERSONAL',
-      );
       final taskLists = _databaseServices.loadAllTaskLists();
       List<TaskList> listOfTaskLists = await taskLists;
       emit(TaskListsLoadedState(listOfTaskLists));

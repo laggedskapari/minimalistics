@@ -1,4 +1,6 @@
+import 'package:cross_v2/domain/bloc/TaskList/task_list_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewTaskListForm extends StatefulWidget {
   const NewTaskListForm({super.key});
@@ -60,7 +62,9 @@ class _CreateNewTaskListFormState extends State<NewTaskListForm> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              BlocProvider.of<TaskListBloc>(context).add(CreateNewTaskListEvent(taskListTitle: _titleController.text.trim()));
+            },
             icon: const Icon(
               Icons.check,
               size: 30,
