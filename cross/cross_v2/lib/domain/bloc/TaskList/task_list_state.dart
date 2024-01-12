@@ -5,10 +5,9 @@ abstract class TaskListState extends Equatable {
 }
 
 class TaskListInitial extends TaskListState {
-  late final List<TaskList> taskLists;
 
   @override
-  List<Object?> get props => [taskLists];
+  List<Object?> get props => [];
 }
 
 class TaskListsLoadedState extends TaskListState {
@@ -18,4 +17,14 @@ class TaskListsLoadedState extends TaskListState {
 
   @override
   List<Object?> get props => [taskLists];
+}
+
+class TasksLoadedState extends TaskListState {
+  final List<Task> tasks;
+  final int taskListId;
+  
+  const TasksLoadedState({required this.tasks, required this.taskListId});
+
+  @override 
+  List<Object?> get props => [tasks, taskListId];
 }

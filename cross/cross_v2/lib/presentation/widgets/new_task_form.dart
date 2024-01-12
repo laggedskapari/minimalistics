@@ -1,5 +1,4 @@
-import 'package:cross_v2/data/database_services.dart';
-import 'package:cross_v2/domain/bloc/Task/task_bloc.dart';
+import 'package:cross_v2/domain/bloc/TaskList/task_list_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -66,7 +65,9 @@ class _CreateNewTaskFormState extends State<NewTaskForm> {
           ),
           IconButton(
             onPressed: () {
-              BlocProvider.of<TaskBloc>(context).add(CreateNewTaskEvent(taskTitle: _titleController.text.trim(), taskList: widget.taskList));
+              BlocProvider.of<TaskListBloc>(context).add(CreateNewTaskEvent(
+                  taskTitle: _titleController.text.trim(),
+                  taskListId: widget.taskList));
             },
             icon: const Icon(
               Icons.check,

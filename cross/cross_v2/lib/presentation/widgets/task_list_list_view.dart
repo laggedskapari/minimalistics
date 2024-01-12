@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TaskListListView extends StatelessWidget {
-  const TaskListListView({super.key, required this.changeTaskList});
-
-  final void Function(int taskListId) changeTaskList;
+  const TaskListListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,6 @@ class TaskListListView extends StatelessWidget {
           itemBuilder: (context, index) => TaskListCard(
             taskListsCount: state.taskLists.length,
             tasklist: state.taskLists[index],
-            changeTaskList: changeTaskList,
           ),
           scrollDirection: Axis.horizontal,
           itemCount: state.taskLists.length,

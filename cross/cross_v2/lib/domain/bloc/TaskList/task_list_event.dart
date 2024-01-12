@@ -9,6 +9,24 @@ class LoadTaskListsEvent extends TaskListEvent {
   List<Object?> get props => [];
 }
 
+class LoadTasksEvent extends TaskListEvent {
+  final int taskList;
+
+  const LoadTasksEvent({required this.taskList});
+
+  @override
+  List<Object?> get props => [taskList];
+}
+
+class SelectTaskListEvent extends TaskListEvent{
+  final int taskListId;
+
+  const SelectTaskListEvent({required this.taskListId});
+
+  @override
+  List<Object?> get props => [taskListId];
+}
+
 class CreateNewTaskListEvent extends TaskListEvent {
   final String taskListTitle;
 
@@ -16,4 +34,14 @@ class CreateNewTaskListEvent extends TaskListEvent {
 
   @override
   List<Object?> get props => [taskListTitle];
+}
+
+class CreateNewTaskEvent extends TaskListEvent {
+  final String taskTitle;
+  final int taskListId;
+
+  const CreateNewTaskEvent({required this.taskTitle, required this.taskListId});
+
+  @override
+  List<Object?> get props => [taskTitle, taskListId];
 }
