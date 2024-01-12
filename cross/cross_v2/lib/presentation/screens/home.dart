@@ -40,10 +40,12 @@ class _HomeState extends State<Home> {
         MultiBlocProvider(
           providers: [
             BlocProvider<TaskListBloc>(
+              lazy: false,
               create: (context) => TaskListBloc(RepositoryProvider.of<DatabaseServices>(context))..add(LoadTaskListsEvent()),
             ),
             BlocProvider<TaskBloc>(
               create: (context) =>TaskBloc(RepositoryProvider.of<DatabaseServices>(context)),
+              lazy: false,
             ),
           ],
           child: const TasksPage(),

@@ -12,10 +12,9 @@ class TaskInitial extends TaskState {
 
 class TasksLoadedState extends TaskState {
   final List<Task> tasks;
-  final int taskList;
 
-  const TasksLoadedState({required this.tasks, required this.taskList});
+  const TasksLoadedState({required this.tasks});
 
   @override
-  List<Object?> get props => [tasks, taskList];
+  List<Object?> get props => [tasks];
 }
