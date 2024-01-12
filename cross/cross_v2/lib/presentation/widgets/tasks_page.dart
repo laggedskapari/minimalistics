@@ -1,9 +1,7 @@
-import 'package:cross_v2/domain/bloc/Task/task_bloc.dart';
-import 'package:cross_v2/presentation/widgets/new_task_form.dart';
-import 'package:cross_v2/presentation/widgets/task_card.dart';
 import 'package:cross_v2/presentation/widgets/task_list_list_view.dart';
+import 'package:cross_v2/presentation/widgets/tasks_list_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
 
 class TasksPage extends StatefulWidget {
   const TasksPage({super.key});
@@ -15,10 +13,11 @@ class TasksPage extends StatefulWidget {
 class _TasksPageState extends State<TasksPage> {
   @override
   Widget build(BuildContext context) {
-    int taskList = 0;
+    int taskList = -1;
     void changeTaskList(int taskListId) {
       setState(() {
         taskList = taskListId;
+        HapticFeedback.lightImpact();
       });
     }
 
@@ -33,30 +32,7 @@ class _TasksPageState extends State<TasksPage> {
             changeTaskList: changeTaskList,
           ),
         ),
-        BlocBuilder<TaskBloc, TaskState>(
-          builder: (context, state) {
-            if (state is TasksLoadedState) {
-              return Expanded(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                  child: Expanded(
-                    child: ListView.builder(
-                        itemBuilder: (context, index) => Dismissible(
-                              key: UniqueKey(),
-                              child: TaskCard(
-                                task: state.tasks[index],
-                              ),
-                            ),
-                        itemCount: state.tasks.length),
-                  ),
-                ),
-              );
-            }
-            return const CircularProgressIndicator();
-          },
-        ),
-        NewTaskForm(taskList: taskList),
+        TasksListView(taskListId: taskList),
       ],
     );
   }

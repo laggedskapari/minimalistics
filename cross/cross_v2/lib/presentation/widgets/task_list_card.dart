@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TaskListCard extends StatelessWidget {
-  const TaskListCard(
-      {super.key,
-      required this.tasklist,
-      required this.taskListsCount,
-      required this.changeTaskList});
+  const TaskListCard({
+    super.key,
+    required this.tasklist,
+    required this.taskListsCount,
+    required this.changeTaskList,
+  });
 
   final TaskList tasklist;
   final int taskListsCount;
@@ -24,7 +25,7 @@ class TaskListCard extends StatelessWidget {
             .add(LoadTasksEvent(taskList: tasklist.id));
       },
       child: Container(
-        width: displayWidth * (.90 / taskListsCount),
+        width: displayWidth * (.91 / taskListsCount),
         decoration: BoxDecoration(
           border: Border.all(color: Theme.of(context).colorScheme.secondary),
           borderRadius: BorderRadius.circular(10),
@@ -37,11 +38,7 @@ class TaskListCard extends StatelessWidget {
         child: Center(
           child: Text(
             tasklist.taskListTitle,
-            style: TextStyle(
-              fontFamily: 'JetBrainsMono',
-              fontSize: 20,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
       ),
