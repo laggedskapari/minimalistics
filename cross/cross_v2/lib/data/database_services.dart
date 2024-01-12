@@ -74,7 +74,7 @@ class DatabaseServices {
       taskList: taskList,
       createdDateTime: DateTime.now().day,
     );
-    dbInstance.writeTxn(() async {
+   await dbInstance.writeTxn(() async {
       await dbInstance.tasks.put(task);
     });
   }
