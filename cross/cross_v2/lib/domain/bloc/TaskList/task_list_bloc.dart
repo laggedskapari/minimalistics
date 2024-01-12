@@ -17,12 +17,14 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
       final taskLists = _databaseServices.loadAllTaskLists();
       List<TaskList> listOfTaskLists = await taskLists;
       emit(TaskListsLoadedState(listOfTaskLists));
+      print("test one");
     });
 
     on<SelectTaskListEvent>((event, emit) async {
       final tasks = _databaseServices.loadAllTasks(taskList: event.taskListId);
       List<Task> listOfTasks = await tasks;
       emit(TasksLoadedState(tasks: listOfTasks, taskListId: event.taskListId));
+           print("test twwo"); 
     });
 
     on<CreateNewTaskListEvent>((event, emit) async {
@@ -30,11 +32,21 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
         taskListTitle: event.taskListTitle,
       );
       add(LoadTaskListsEvent());
+      print("test 3");
+    });
+
+    on<LoadTasksEvent>((event, emit) async {
+      final tasks = _databaseServices.loadAllTasks(taskList: event.taskListId);
+      List<Task> listOfTasks = await tasks;
+      emit(TasksLoadedState(tasks: listOfTasks, taskListId: event.taskListId));
+      print("test four");
+      print(listOfTasks.length);
     });
 
     on<CreateNewTaskEvent>((event, emit) async {
       await _databaseServices.createNewTask(taskTitle: event.taskTitle, taskList: event.taskListId);
-      add(SelectTaskListEvent(taskListId: event.taskListId));
+      print("test 5");
+      add(LoadTasksEvent(taskListId: event.taskListId));
     });
   }
 }

@@ -10,12 +10,12 @@ class LoadTaskListsEvent extends TaskListEvent {
 }
 
 class LoadTasksEvent extends TaskListEvent {
-  final int taskList;
+  final int taskListId;
 
-  const LoadTasksEvent({required this.taskList});
+  const LoadTasksEvent({required this.taskListId});
 
   @override
-  List<Object?> get props => [taskList];
+  List<Object?> get props => [taskListId];
 }
 
 class SelectTaskListEvent extends TaskListEvent{

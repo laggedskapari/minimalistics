@@ -32,7 +32,10 @@ class TasksPageCard extends StatelessWidget {
           height: 500,
           child: BlocBuilder<TaskListBloc, TaskListState>(
             builder: (context, state) {
+              print('state is changed');
               if (state is TasksLoadedState) {
+              print('state is changed');
+              print(state.tasks.length);
                 return Column(
                   children: [
                     Expanded(

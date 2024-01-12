@@ -28,3 +28,13 @@ class TasksLoadedState extends TaskListState {
   @override 
   List<Object?> get props => [tasks, taskListId];
 }
+
+class TasksUpdatedLoadedState extends TaskListState {
+  final List<Task> tasks;
+  final int taskListId;
+
+  const TasksUpdatedLoadedState({required this.tasks, required this.taskListId});
+
+  @override
+  List<Object?> get props => [tasks, taskListId];
+}
