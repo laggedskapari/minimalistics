@@ -20,10 +20,8 @@ class _CreateNewTaskListFormState extends State<NewTaskListForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-      height: 70,
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+    return SizedBox(
+      height: 50,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -37,26 +35,17 @@ class _CreateNewTaskListFormState extends State<NewTaskListForm> {
           ),
           Expanded(
             child: Center(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextField(
-                    maxLines: 1,
-                    maxLength: 30,
-                    controller: _titleController,
-                    style: Theme.of(context).textTheme.titleMedium,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.zero,
-                      counter: const Offstage(),
-                      hintText: '//TITLE',
-                      hintStyle: Theme.of(context).textTheme.labelSmall,
-                      border: InputBorder.none,
-                    ),
-                  ),
+              child: TextField(
+                maxLines: 1,
+                maxLength: 10,
+                controller: _titleController,
+                style: Theme.of(context).textTheme.titleMedium,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.zero,
+                  counter: const Offstage(),
+                  hintText: '//TITLE',
+                  hintStyle: Theme.of(context).textTheme.labelMedium,
+                  border: InputBorder.none,
                 ),
               ),
             ),
