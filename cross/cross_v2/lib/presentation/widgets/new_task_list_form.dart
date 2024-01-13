@@ -18,6 +18,13 @@ class _CreateNewTaskListFormState extends State<NewTaskListForm> {
     super.dispose();
   }
 
+  void submitNewTaskList(String taskTitle){
+    if(taskTitle != ''){
+      BlocProvider.of<TaskListBloc>(context).add(CreateNewTaskListEvent(taskListTitle: taskTitle));
+      _titleController.text = '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -52,7 +59,7 @@ class _CreateNewTaskListFormState extends State<NewTaskListForm> {
           ),
           IconButton(
             onPressed: () {
-              BlocProvider.of<TaskListBloc>(context).add(CreateNewTaskListEvent(taskListTitle: _titleController.text.trim()));
+              submitNewTaskList(_titleController.text.trim());
             },
             icon: const Icon(
               Icons.check,

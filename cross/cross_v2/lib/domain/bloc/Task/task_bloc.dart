@@ -14,7 +14,6 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     on<LoadTasksEvent>((event, emit) async {
       final tasks = _databaseServices.loadAllTasks(taskList: event.taskList);
       List<Task> listOfTask = await tasks;
-      print('i was called');
       emit(TasksLoadedState(tasks: listOfTask, taskList: event.taskList));
     });
 

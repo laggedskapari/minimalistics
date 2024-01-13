@@ -21,6 +21,13 @@ class _CreateNewTaskFormState extends State<NewTaskForm> {
     super.dispose();
   }
 
+  void submitNewTask({required String taskTitle, required int taskListId}){
+    if(taskTitle != ''){
+      BlocProvider.of<TaskBloc>(context).add(CreateNewTaskEvent(taskTitle: taskTitle, taskList: taskListId));
+      _titleController.text = '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double displayWidth = MediaQuery.of(context).size.width;
@@ -60,7 +67,7 @@ class _CreateNewTaskFormState extends State<NewTaskForm> {
             ),
             IconButton(
               onPressed: () {
-                BlocProvider.of<TaskBloc>(context).add(CreateNewTaskEvent(taskTitle: _titleController.text.trim(), taskList: widget.taskList));
+                submitNewTask(taskTitle: _titleController.text.trim(), taskListId: widget.taskList);
               },
               icon: const Icon(
                 Icons.check,
