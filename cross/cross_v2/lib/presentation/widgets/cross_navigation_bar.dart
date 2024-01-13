@@ -59,7 +59,7 @@ class _CrossNavigationBarState extends State<CrossNavigationBar> {
                   width: displayWidth * .40,
                   decoration: BoxDecoration(
                     color: index == currentIndex
-                        ? Colors.blueAccent.withOpacity(.2)
+                        ? Theme.of(context).colorScheme.secondary.withOpacity(.2)
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(50),
                   ),

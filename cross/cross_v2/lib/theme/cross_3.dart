@@ -25,7 +25,7 @@ final crossYellow = ThemeData(
       fontSize: 19,
       fontFamily: 'JetBrainsMono',
       fontWeight: FontWeight.w900,
-      color: Color.fromARGB(255, 75, 89, 117),
+      color: Color.fromARGB(255, 226, 183, 20),
     ),
     bodyMedium: TextStyle(
       fontSize: 19,
@@ -35,8 +35,14 @@ final crossYellow = ThemeData(
     labelSmall: TextStyle(
       fontSize: 12,
       fontFamily: 'JetBrainsMono',
-      fontWeight: FontWeight.bold,
-      color: Color.fromARGB(255, 75, 89, 117),
+      fontWeight: FontWeight.w900,
+      color: Color.fromARGB(255, 100, 102, 105),
+    ),
+    labelMedium: TextStyle(
+      fontSize: 15,
+      fontFamily: 'JetBrainsMono',
+      fontWeight: FontWeight.w900,
+      color: Color.fromARGB(255, 100, 102, 105),
     ),
   ),
 );

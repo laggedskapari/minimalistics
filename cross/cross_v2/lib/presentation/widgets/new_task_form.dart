@@ -52,7 +52,7 @@ class _CreateNewTaskFormState extends State<NewTaskForm> {
                     contentPadding: EdgeInsets.zero,
                     counter: const Offstage(),
                     hintText: '//TITLE',
-                    hintStyle: Theme.of(context).textTheme.labelSmall,
+                    hintStyle: Theme.of(context).textTheme.labelMedium,
                     border: InputBorder.none,
                   ),
                 ),
