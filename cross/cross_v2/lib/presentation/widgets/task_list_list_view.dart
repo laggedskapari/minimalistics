@@ -10,19 +10,21 @@ class TaskListListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TaskListBloc, TaskListState>(builder: (context, state) {
-      if (state is TaskListsLoadedState) {
-        return ListView.builder(
-          itemBuilder: (context, index) => TaskListCard(
-            taskListsCount: state.taskLists.length,
-            tasklist: state.taskLists[index],
-            changeTaskList: changeTaskList,
-          ),
-          scrollDirection: Axis.horizontal,
-          itemCount: state.taskLists.length,
-        );
-      }
-      return const CircularProgressIndicator();
-    });
+    return BlocBuilder<TaskListBloc, TaskListState>(
+      builder: (context, state) {
+        if (state is TaskListsLoadedState) {
+          return ListView.builder(
+            itemBuilder: (context, index) => TaskListCard(
+              taskListsCount: state.taskLists.length,
+              tasklist: state.taskLists[index],
+              changeTaskList: changeTaskList,
+            ),
+            scrollDirection: Axis.horizontal,
+            itemCount: state.taskLists.length,
+          );
+        }
+        return const CircularProgressIndicator();
+      },
+    );
   }
 }

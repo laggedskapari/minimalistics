@@ -8,108 +8,116 @@ class ThemePreviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        GestureDetector(
-          onTap: () {
-            BlocProvider.of<ThemeBloc>(context)
-                .add(SetCrossBlueThemeEvent(crossBlue: crossBlue));
-          },
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 2,
-                color: crossBlue.colorScheme.secondary,
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            margin: const EdgeInsets.all(8),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.circle_rounded,
-                  color: crossBlue.colorScheme.primary,
-                ),
-                Icon(
-                  Icons.circle_rounded,
-                  color: crossBlue.colorScheme.secondary,
-                ),
-                Icon(
-                  Icons.circle_rounded,
-                  color: crossBlue.colorScheme.background,
-                ),
-              ],
-            ),
-          ),
+        Text(
+          '//SELECT INTERFACE COLOR SCHEME',
+          style: Theme.of(context).textTheme.labelMedium,
         ),
-        GestureDetector(
-          onTap: () {
-            BlocProvider.of<ThemeBloc>(context)
-                .add(SetCrossYellowThemeEvent(crossYellow: crossYellow));
-          },
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 2,
-                color: crossYellow.colorScheme.secondary,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () {
+                BlocProvider.of<ThemeBloc>(context)
+                    .add(SetCrossBlueThemeEvent(crossBlue: crossBlue));
+              },
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 2,
+                    color: crossBlue.colorScheme.secondary,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                margin: const EdgeInsets.all(8),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.circle_rounded,
+                      color: crossBlue.colorScheme.primary,
+                    ),
+                    Icon(
+                      Icons.circle_rounded,
+                      color: crossBlue.colorScheme.secondary,
+                    ),
+                    Icon(
+                      Icons.circle_rounded,
+                      color: crossBlue.colorScheme.background,
+                    ),
+                  ],
+                ),
               ),
-              borderRadius: BorderRadius.circular(10),
             ),
-            margin: const EdgeInsets.all(8),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.circle_rounded,
-                  color: crossYellow.colorScheme.primary,
+            GestureDetector(
+              onTap: () {
+                BlocProvider.of<ThemeBloc>(context)
+                    .add(SetCrossYellowThemeEvent(crossYellow: crossYellow));
+              },
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 2,
+                    color: crossYellow.colorScheme.secondary,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                Icon(
-                  Icons.circle_rounded,
-                  color: crossYellow.colorScheme.secondary,
+                margin: const EdgeInsets.all(8),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.circle_rounded,
+                      color: crossYellow.colorScheme.primary,
+                    ),
+                    Icon(
+                      Icons.circle_rounded,
+                      color: crossYellow.colorScheme.secondary,
+                    ),
+                    Icon(
+                      Icons.circle_rounded,
+                      color: crossYellow.colorScheme.background,
+                    ),
+                  ],
                 ),
-                Icon(
-                  Icons.circle_rounded,
-                  color: crossYellow.colorScheme.background,
-                ),
-              ],
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            BlocProvider.of<ThemeBloc>(context)
-                .add(SetCrossRedThemeEvent(crossRed: crossRed));
-          },
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 2,
-                color: crossRed.colorScheme.secondary,
               ),
-              borderRadius: BorderRadius.circular(10),
             ),
-            margin: const EdgeInsets.all(8),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.circle_rounded,
-                  color: crossRed.colorScheme.primary,
+            GestureDetector(
+              onTap: () {
+                BlocProvider.of<ThemeBloc>(context)
+                    .add(SetCrossRedThemeEvent(crossRed: crossRed));
+              },
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 2,
+                    color: crossRed.colorScheme.secondary,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                Icon(
-                  Icons.circle_rounded,
-                  color: crossRed.colorScheme.secondary,
+                margin: const EdgeInsets.all(8),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.circle_rounded,
+                      color: crossRed.colorScheme.primary,
+                    ),
+                    Icon(
+                      Icons.circle_rounded,
+                      color: crossRed.colorScheme.secondary,
+                    ),
+                    Icon(
+                      Icons.circle_rounded,
+                      color: crossRed.colorScheme.background,
+                    ),
+                  ],
                 ),
-                Icon(
-                  Icons.circle_rounded,
-                  color: crossRed.colorScheme.background,
-                ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ],
     );
