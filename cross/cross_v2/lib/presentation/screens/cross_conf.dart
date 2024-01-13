@@ -10,25 +10,23 @@ class CrossConf extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          BlocProvider(
-            create: (context) =>
-                TaskListBloc(RepositoryProvider.of<DatabaseServices>(context))
-                  ..add(LoadTaskListsEvent()),
-            child: const Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ThemePreviewCard(),
-                  TaskListsConfCard(),
-                ],
-              ),
+    return Column(
+      children: [
+        BlocProvider(
+          create: (context) =>
+              TaskListBloc(RepositoryProvider.of<DatabaseServices>(context))
+                ..add(LoadTaskListsEvent()),
+          child: const Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ThemePreviewCard(),
+                TaskListsConfCard(),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
