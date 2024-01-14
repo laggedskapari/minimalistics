@@ -1,3 +1,4 @@
+import 'package:cross_v2/data/cross_configration.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:cross_v2/data/task_list.dart';
@@ -14,11 +15,20 @@ class DatabaseServices {
   Future<Isar> openDatabase() async {
     if (Isar.instanceNames.isEmpty) {
       final dir = await getApplicationDocumentsDirectory();
-      final isar =
-          await Isar.open([TaskListSchema, TaskSchema], directory: dir.path);
+      final isar = await Isar.open(
+          [TaskListSchema, TaskSchema, CrossConfigrationSchema],
+          directory: dir.path);
       return isar;
     }
     return Future.value(Isar.getInstance());
+  }
+
+  Future<void> initializeCross() async {
+    final dbInstance = await _db;
+    final crossConf = await dbInstance.crossConfigrations.filter().crossConfIdEqualTo('adalovelace').findFirst();
+    if(crossConf == null){
+      createCrossConfigration(currentTheme: 'crossYellow');
+    }
   }
 
   Future<List<TaskList>> loadAllTaskLists() async {
@@ -74,7 +84,7 @@ class DatabaseServices {
       taskList: taskList,
       createdDateTime: DateTime.now().day,
     );
-   await dbInstance.writeTxn(() async {
+    await dbInstance.writeTxn(() async {
       await dbInstance.tasks.put(task);
     });
   }
@@ -124,5 +134,34 @@ class DatabaseServices {
         await dbInstance.tasks.put(task);
       });
     }
+  }
+
+  //CrossConfigrations
+  Future<void> createCrossConfigration({required String currentTheme}) async {
+    final Isar dbInstance = await _db;
+    final crossConf = CrossConfigration(currentTheme: currentTheme);
+    await dbInstance.writeTxn(() async {
+      await dbInstance.crossConfigrations.put(crossConf);
+    });
+  }
+
+  Future<void> setCrossConfigration({required String theme}) async {
+    final Isar dbInstance = await _db;
+    final crossConf = await dbInstance.crossConfigrations.filter().crossConfIdEqualTo('adalovelace').findFirst();
+    if(crossConf != null){
+      crossConf.currentTheme = theme;
+      dbInstance.writeTxn(() async {
+        await dbInstance.crossConfigrations.put(crossConf);
+      });
+    }
+  }
+
+  Future<String> loadCrossConfigration() async {
+    final Isar dbInstance = await _db;
+    final crossConf = await dbInstance.crossConfigrations.filter().crossConfIdEqualTo('adalovelace').findFirst();
+    if(crossConf != null){
+      return crossConf.currentTheme;
+    }
+    return 'crossYellow';
   }
 }

@@ -16,7 +16,7 @@ class CrossApp extends StatelessWidget {
         RepositoryProvider(create: (context) => DatabaseServices()),
       ],
       child: BlocProvider(
-        create: (context) => ThemeBloc()..add(SetDefaultThemeEvent()),
+        create: (context) => ThemeBloc(RepositoryProvider.of<DatabaseServices>(context))..add(SetDefaultThemeEvent()),
         child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
           if (state is ThemeSetState) {
             return MaterialApp(
