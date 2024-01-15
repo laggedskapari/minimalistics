@@ -10,6 +10,7 @@ class Task {
   int taskList;
   int createdDateTime;
   DateTime? completedDateTime;
+  bool isSelfDestruct;
   bool isImportant;
   bool isCompleted;
   DateTime? reminderDateTime;
@@ -21,5 +22,6 @@ class Task {
     required this.createdDateTime,
     this.isImportant = false,
     this.isCompleted = false,
+    this.isSelfDestruct = false,
   });
 }

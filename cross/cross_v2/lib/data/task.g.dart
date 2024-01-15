@@ -37,23 +37,28 @@ const TaskSchema = CollectionSchema(
       name: r'isImportant',
       type: IsarType.bool,
     ),
-    r'reminderDateTime': PropertySchema(
+    r'isSelfDestruct': PropertySchema(
       id: 4,
+      name: r'isSelfDestruct',
+      type: IsarType.bool,
+    ),
+    r'reminderDateTime': PropertySchema(
+      id: 5,
       name: r'reminderDateTime',
       type: IsarType.dateTime,
     ),
     r'taskId': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'taskId',
       type: IsarType.string,
     ),
     r'taskList': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'taskList',
       type: IsarType.long,
     ),
     r'taskTitle': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'taskTitle',
       type: IsarType.string,
     )
@@ -93,10 +98,11 @@ void _taskSerialize(
   writer.writeLong(offsets[1], object.createdDateTime);
   writer.writeBool(offsets[2], object.isCompleted);
   writer.writeBool(offsets[3], object.isImportant);
-  writer.writeDateTime(offsets[4], object.reminderDateTime);
-  writer.writeString(offsets[5], object.taskId);
-  writer.writeLong(offsets[6], object.taskList);
-  writer.writeString(offsets[7], object.taskTitle);
+  writer.writeBool(offsets[4], object.isSelfDestruct);
+  writer.writeDateTime(offsets[5], object.reminderDateTime);
+  writer.writeString(offsets[6], object.taskId);
+  writer.writeLong(offsets[7], object.taskList);
+  writer.writeString(offsets[8], object.taskTitle);
 }
 
 Task _taskDeserialize(
@@ -109,13 +115,14 @@ Task _taskDeserialize(
     createdDateTime: reader.readLong(offsets[1]),
     isCompleted: reader.readBoolOrNull(offsets[2]) ?? false,
     isImportant: reader.readBoolOrNull(offsets[3]) ?? false,
-    taskId: reader.readString(offsets[5]),
-    taskList: reader.readLong(offsets[6]),
-    taskTitle: reader.readString(offsets[7]),
+    isSelfDestruct: reader.readBoolOrNull(offsets[4]) ?? false,
+    taskId: reader.readString(offsets[6]),
+    taskList: reader.readLong(offsets[7]),
+    taskTitle: reader.readString(offsets[8]),
   );
   object.completedDateTime = reader.readDateTimeOrNull(offsets[0]);
   object.id = id;
-  object.reminderDateTime = reader.readDateTimeOrNull(offsets[4]);
+  object.reminderDateTime = reader.readDateTimeOrNull(offsets[5]);
   return object;
 }
 
@@ -135,12 +142,14 @@ P _taskDeserializeProp<P>(
     case 3:
       return (reader.readBoolOrNull(offset) ?? false) as P;
     case 4:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readBoolOrNull(offset) ?? false) as P;
     case 5:
-      return (reader.readString(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 6:
-      return (reader.readLong(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 7:
+      return (reader.readLong(offset)) as P;
+    case 8:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -424,6 +433,16 @@ extension TaskQueryFilter on QueryBuilder<Task, Task, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'isImportant',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterFilterCondition> isSelfDestructEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isSelfDestruct',
         value: value,
       ));
     });
@@ -862,6 +881,18 @@ extension TaskQuerySortBy on QueryBuilder<Task, Task, QSortBy> {
     });
   }
 
+  QueryBuilder<Task, Task, QAfterSortBy> sortByIsSelfDestruct() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isSelfDestruct', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterSortBy> sortByIsSelfDestructDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isSelfDestruct', Sort.desc);
+    });
+  }
+
   QueryBuilder<Task, Task, QAfterSortBy> sortByReminderDateTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'reminderDateTime', Sort.asc);
@@ -972,6 +1003,18 @@ extension TaskQuerySortThenBy on QueryBuilder<Task, Task, QSortThenBy> {
     });
   }
 
+  QueryBuilder<Task, Task, QAfterSortBy> thenByIsSelfDestruct() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isSelfDestruct', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterSortBy> thenByIsSelfDestructDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isSelfDestruct', Sort.desc);
+    });
+  }
+
   QueryBuilder<Task, Task, QAfterSortBy> thenByReminderDateTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'reminderDateTime', Sort.asc);
@@ -1046,6 +1089,12 @@ extension TaskQueryWhereDistinct on QueryBuilder<Task, Task, QDistinct> {
     });
   }
 
+  QueryBuilder<Task, Task, QDistinct> distinctByIsSelfDestruct() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'isSelfDestruct');
+    });
+  }
+
   QueryBuilder<Task, Task, QDistinct> distinctByReminderDateTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'reminderDateTime');
@@ -1101,6 +1150,12 @@ extension TaskQueryProperty on QueryBuilder<Task, Task, QQueryProperty> {
   QueryBuilder<Task, bool, QQueryOperations> isImportantProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isImportant');
+    });
+  }
+
+  QueryBuilder<Task, bool, QQueryOperations> isSelfDestructProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'isSelfDestruct');
     });
   }
 
