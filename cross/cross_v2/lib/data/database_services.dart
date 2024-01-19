@@ -1,4 +1,5 @@
 import 'package:cross_v2/data/cross_configration.dart';
+import 'package:cross_v2/data/self_destruct_task.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:cross_v2/data/task_list.dart';
@@ -151,15 +152,6 @@ class DatabaseServices {
     }
   }
 
-  Future<List<Task>> loadAllSelfDestructTasks() async {
-    final Isar dbInstance = await _db;
-    final tasks = await dbInstance.tasks
-        .filter().taskListEqualTo(9999)
-        .sortByIsImportantDesc()
-        .findAll();
-    return tasks;
-  }
-
   //CrossConfigrations
   Future<void> createCrossConfigration({required String currentTheme}) async {
     final Isar dbInstance = await _db;
@@ -193,5 +185,68 @@ class DatabaseServices {
       return crossConf.currentTheme;
     }
     return 'crossYellow';
+  }
+  // Self Destruct Tasks
+
+  Future<List<SelfDestructTask>> loadAllSelfDestructTasks() async {
+    final Isar dbInstance = await _db;
+    final selfDestructTasks = await dbInstance.selfDestructTasks
+        .where()
+        .sortByIsCompletedDesc()
+        .findAll();
+    return selfDestructTasks;
+  }
+
+  Future<void> createNewSelfDestructTask(String taskTitle) async {
+    final Isar dbInstance = await _db;
+    const uuid = Uuid();
+    final newSelfDestructTask = SelfDestructTask(
+      taskId: uuid.v4(),
+      taskTitle: taskTitle,
+      createdDay: DateTime.now().day,
+    );
+    dbInstance.writeTxn(() async {
+      await dbInstance.selfDestructTasks.put(newSelfDestructTask);
+    });
+  }
+
+  Future<void> deleteSelfDestructTask(String taskId) async {
+    final Isar dbInstance = await _db;
+    final selfDestructTask = await dbInstance.selfDestructTasks
+        .filter()
+        .idEqualTo(taskId as Id)
+        .findFirst();
+    if (selfDestructTask != null) {
+      dbInstance.selfDestructTasks.delete(selfDestructTask.id);
+    }
+  }
+
+  Future<void> crossSelfDestructTask(String taskId) async {
+    final Isar dbInstance = await _db;
+    final selfDestructTask = await dbInstance.selfDestructTasks
+        .filter()
+        .idEqualTo(taskId as Id)
+        .findFirst();
+    if (selfDestructTask != null) {
+      dbInstance.writeTxn(() async {
+        selfDestructTask.isCompleted = true;
+        await dbInstance.selfDestructTasks.put(selfDestructTask);
+      });
+    }
+  }
+
+  Future<void> unCrossSelfDestructTask(String taskId) async {
+    final Isar dbInstance = await _db;
+    final selfDestructTask = await dbInstance.selfDestructTasks
+        .filter()
+        .idEqualTo(taskId as Id)
+        .findFirst();
+    if (selfDestructTask != null) {
+      selfDestructTask.isCompleted = false;
+      dbInstance.writeTxn(() async {
+        selfDestructTask.isCompleted = false;
+        await dbInstance.selfDestructTasks.put(selfDestructTask);
+      });
+    }
   }
 }
