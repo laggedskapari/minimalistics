@@ -210,6 +210,17 @@ class DatabaseServices {
     });
   }
 
+  Future<void> clearOldSelfDestructTask() async {
+    final Isar dbInstance = await _db;
+    dbInstance.writeTxn(() async {
+      await dbInstance.selfDestructTasks
+          .filter()
+          .not()
+          .createdDayEqualTo(DateTime.now().day)
+          .deleteAll();
+    });
+  }
+
   Future<void> deleteSelfDestructTask(String taskId) async {
     final Isar dbInstance = await _db;
     final selfDestructTask = await dbInstance.selfDestructTasks

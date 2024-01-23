@@ -32,7 +32,9 @@ class TaskServices {
     const uuid = Uuid();
     await dbInstance.writeTxn(() async {
       final task = Task(
-          id: uuid.v4(), taskTitle: title, createdTimeStamp: DateTime.now().day);
+          id: uuid.v4(),
+          taskTitle: title,
+          createdTimeStamp: DateTime.now().day);
       await dbInstance.tasks.put(task);
     });
   }
@@ -88,7 +90,11 @@ class TaskServices {
     final dbInstance = await _db;
     await dbInstance.tasks.where().sortByIsImportantDesc().findAll();
     dbInstance.writeTxn(() async {
-      await dbInstance.tasks.filter().not().createdTimeStampEqualTo(DateTime.now().day).deleteAll();
+      await dbInstance.tasks
+          .filter()
+          .not()
+          .createdTimeStampEqualTo(DateTime.now().day)
+          .deleteAll();
     });
   }
 

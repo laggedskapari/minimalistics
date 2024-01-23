@@ -5,9 +5,8 @@ abstract class TasksState extends Equatable {
 }
 
 class TasksInitial extends TasksState {
-  late final List<Task> tasks;
   @override
-  List<Object> get props => [tasks];
+  List<Object> get props => [];
 }
 
 class TasksLoadedState extends TasksState {
