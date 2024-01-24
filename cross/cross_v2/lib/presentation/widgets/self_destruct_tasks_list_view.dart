@@ -1,5 +1,5 @@
 import 'package:cross_v2/domain/bloc/SelfDestructTask/self_destruct_task_bloc.dart';
-import 'package:cross_v2/presentation/widgets/new_task_form.dart';
+import 'package:cross_v2/presentation/widgets/new_self_destruct_task_form.dart';
 import 'package:cross_v2/presentation/widgets/self_destruct_task_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +30,6 @@ class SelfDestructTasksListView extends StatelessWidget {
                     ),
                   ),
                 ),
-                NewTaskForm(taskList: taskListId),
               ],
             ),
           );
@@ -38,7 +37,7 @@ class SelfDestructTasksListView extends StatelessWidget {
         return Expanded(
           child: Center(
             child: Text(
-              '//SELECT A TASK LIST',
+              '//PHEW! NO RACE AGAINST TIME TODAY!',
               style: Theme.of(context).textTheme.labelSmall,
             ),
           ),

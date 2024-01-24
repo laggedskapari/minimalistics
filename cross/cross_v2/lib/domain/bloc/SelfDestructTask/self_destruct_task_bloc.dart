@@ -7,14 +7,25 @@ import 'package:equatable/equatable.dart';
 part 'self_destruct_task_state.dart';
 part 'self_destruct_task_event.dart';
 
-class SelfDestructTaskBloc extends Bloc<SelfDestructTaskEvent, SelfDestructTaskState>{
+class SelfDestructTaskBloc
+    extends Bloc<SelfDestructTaskEvent, SelfDestructTaskState> {
   final DatabaseServices _databaseServices;
 
-  SelfDestructTaskBloc(this._databaseServices) : super(SelfDestructTaskInitial()){
+  SelfDestructTaskBloc(this._databaseServices)
+      : super(SelfDestructTaskInitial()) {
     on<LoadSelfDestructTasksEvent>((event, emit) async {
       final selfDestructTasks = _databaseServices.loadAllSelfDestructTasks();
       List<SelfDestructTask> listOfSelfDestructTasks = await selfDestructTasks;
-      emit(SelfDestructTaskLoadedState(selfDestructTaskList: listOfSelfDestructTasks));
+      emit(SelfDestructTaskLoadedState(
+        selfDestructTaskList: listOfSelfDestructTasks,
+      ));
+    });
+
+    on<CreateNewSelfDestructTaskEvent>((event, emit) async {
+      await _databaseServices
+          .createNewSelfDestructTask(event.selfDestructTaskTitle);
+      print('this is called ${event.selfDestructTaskTitle}');
+      add(LoadSelfDestructTasksEvent());
     });
   }
 }

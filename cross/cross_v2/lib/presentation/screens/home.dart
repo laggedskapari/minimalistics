@@ -1,4 +1,5 @@
 import 'package:cross_v2/data/database_services.dart';
+import 'package:cross_v2/domain/bloc/SelfDestructTask/self_destruct_task_bloc.dart';
 import 'package:cross_v2/domain/bloc/Task/task_bloc.dart';
 import 'package:cross_v2/domain/bloc/TaskList/task_list_bloc.dart';
 import 'package:cross_v2/presentation/screens/cross_conf.dart';
@@ -31,14 +32,22 @@ class _HomeState extends State<Home> {
       appBar: const CrossAppBar(),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: <Widget>[
-        const SelfDestructTasks(),
+        BlocProvider(
+          create: (context) => SelfDestructTaskBloc(
+              RepositoryProvider.of<DatabaseServices>(context))
+            ..add(LoadSelfDestructTasksEvent()),
+          child: const SelfDestructTasks(),
+        ),
         MultiBlocProvider(
           providers: [
             BlocProvider<TaskListBloc>(
-              create: (context) => TaskListBloc(RepositoryProvider.of<DatabaseServices>(context))..add(LoadTaskListsEvent()),
+              create: (context) =>
+                  TaskListBloc(RepositoryProvider.of<DatabaseServices>(context))
+                    ..add(LoadTaskListsEvent()),
             ),
             BlocProvider<TaskBloc>(
-              create: (context) =>TaskBloc(RepositoryProvider.of<DatabaseServices>(context)),
+              create: (context) =>
+                  TaskBloc(RepositoryProvider.of<DatabaseServices>(context)),
             ),
           ],
           child: const TasksPage(),

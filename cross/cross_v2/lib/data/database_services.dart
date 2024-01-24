@@ -17,7 +17,7 @@ class DatabaseServices {
     if (Isar.instanceNames.isEmpty) {
       final dir = await getApplicationDocumentsDirectory();
       final isar = await Isar.open(
-          [TaskListSchema, TaskSchema, CrossConfigrationSchema],
+          [TaskListSchema, TaskSchema, CrossConfigrationSchema, SelfDestructTaskSchema],
           directory: dir.path);
       return isar;
     }
@@ -26,24 +26,12 @@ class DatabaseServices {
 
   Future<void> initializeCross() async {
     final dbInstance = await _db;
-
-    final crossSelfDestructTaskList = await dbInstance.taskLists
-        .filter()
-        .taskListIdEqualTo('adalovelace')
-        .findFirst();
     final crossConf = await dbInstance.crossConfigrations
         .filter()
         .crossConfIdEqualTo('adalovelace')
         .findFirst();
     if (crossConf == null) {
       createCrossConfigration(currentTheme: 'crossYellow');
-    }
-    if (crossSelfDestructTaskList == null) {
-      final selfDestructTaskList =
-          TaskList(taskListId: '9999', taskListTitle: 'SELFDESTRUCT');
-      await dbInstance.writeTxn(() async {
-        await dbInstance.taskLists.put(selfDestructTaskList);
-      });
     }
   }
 
@@ -205,7 +193,7 @@ class DatabaseServices {
       taskTitle: taskTitle,
       createdDay: DateTime.now().day,
     );
-    dbInstance.writeTxn(() async {
+    await dbInstance.writeTxn(() async {
       await dbInstance.selfDestructTasks.put(newSelfDestructTask);
     });
   }

@@ -1,6 +1,5 @@
 import 'package:cross_v2/data/database_services.dart';
 import 'package:cross_v2/domain/bloc/SelfDestructTask/self_destruct_task_bloc.dart';
-import 'package:cross_v2/domain/bloc/Task/task_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,7 +30,7 @@ class _CreateNewSelfDestructTaskFormState extends State<NewSelfDestructTaskForm>
   Widget build(BuildContext context) {
     double displayWidth = MediaQuery.of(context).size.width;
     return BlocProvider(
-      create: (context) => TaskBloc(RepositoryProvider.of<DatabaseServices>(context)),
+      create: (context) => SelfDestructTaskBloc(RepositoryProvider.of<DatabaseServices>(context)),
       child: Container(
         margin: EdgeInsets.all(displayWidth * .05),
         height: 51,
@@ -66,7 +65,7 @@ class _CreateNewSelfDestructTaskFormState extends State<NewSelfDestructTaskForm>
             ),
             IconButton(
               onPressed: () {
-                submitNewTask(taskTitle: _titleController.text.trim(), taskListId: widget.taskList);
+                submitNewSelfDestructTask(taskTitle: _titleController.text.trim());
               },
               icon: const Icon(
                 Icons.check,
