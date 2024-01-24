@@ -60,7 +60,7 @@ class _CountdownTimerState extends State<CountdownTimerCard> {
     String formattedTime = _formatDuration(timerDuration);
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(30, 20, 0, 30),
+      padding: const EdgeInsets.fromLTRB(30, 20, 0, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
