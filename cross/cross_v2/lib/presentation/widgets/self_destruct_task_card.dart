@@ -19,7 +19,7 @@ class SelfDestructTaskCard extends StatelessWidget {
               Icons.double_arrow,
               color: Theme.of(context).colorScheme.primary,
               size: 20,
-            ),
+            ), o
           ),
           GestureDetector(
             onHorizontalDragStart: (DragStartDetails details) {
@@ -28,7 +28,9 @@ class SelfDestructTaskCard extends StatelessWidget {
             onHorizontalDragUpdate: (DragUpdateDetails details) {
               if (details.globalPosition.dx - initialOffset > 100) {}
             },
-            onDoubleTap: () {},
+            onDoubleTap: () {
+              BlocProvider.of<SelfDestructTaskBloc>(context).add();
+            },
             onLongPress: () {},
             child: Text(
               selfDestructTask.taskTitle,

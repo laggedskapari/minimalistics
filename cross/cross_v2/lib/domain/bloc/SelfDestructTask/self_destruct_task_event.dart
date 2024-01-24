@@ -17,3 +17,30 @@ class CreateNewSelfDestructTaskEvent extends SelfDestructTaskEvent {
   @override
   List<Object?> get props => [selfDestructTaskTitle];
 }
+
+class CrossSelfDestructTaskEvent extends SelfDestructTaskEvent {
+  final String selfDestructTaskId;
+
+  const CrossSelfDestructTaskEvent({required this.selfDestructTaskId});
+
+  @override
+  List<Object?> get props => [selfDestructTaskId];
+}
+
+class UnCrossSelfDestructTaskEvent extends SelfDestructTaskEvent {
+  final String selfDestructTaskId;
+
+  const UnCrossSelfDestructTaskEvent({required this.selfDestructTaskId});
+
+  @override
+  List<Object?> get props => [selfDestructTaskId];
+}
+
+class DeleteSelfDestructTaskEvent extends SelfDestructTaskEvent {
+  final String selfDestructTaskId;
+
+  const DeleteSelfDestructTaskEvent({required this.selfDestructTaskId});
+
+  @override
+  List<Object?> get props => [selfDestructTaskId];
+}
