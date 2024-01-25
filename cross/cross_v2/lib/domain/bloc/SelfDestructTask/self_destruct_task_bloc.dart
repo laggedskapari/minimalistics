@@ -24,7 +24,13 @@ class SelfDestructTaskBloc
     on<CreateNewSelfDestructTaskEvent>((event, emit) async {
       await _databaseServices
           .createNewSelfDestructTask(event.selfDestructTaskTitle);
-      print('this is called ${event.selfDestructTaskTitle}');
+      add(LoadSelfDestructTasksEvent());
+    });
+
+    on<CrossSelfDestructTaskEvent>((event, emit) async {
+      print("called");
+      await _databaseServices.crossSelfDestructTask(taskId: event.selfDestructTaskId);
+      print("this is called ${event.selfDestructTaskId}");
       add(LoadSelfDestructTasksEvent());
     });
   }

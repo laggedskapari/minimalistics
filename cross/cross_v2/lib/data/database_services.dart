@@ -16,9 +16,12 @@ class DatabaseServices {
   Future<Isar> openDatabase() async {
     if (Isar.instanceNames.isEmpty) {
       final dir = await getApplicationDocumentsDirectory();
-      final isar = await Isar.open(
-          [TaskListSchema, TaskSchema, CrossConfigrationSchema, SelfDestructTaskSchema],
-          directory: dir.path);
+      final isar = await Isar.open([
+        TaskListSchema,
+        TaskSchema,
+        CrossConfigrationSchema,
+        SelfDestructTaskSchema
+      ], directory: dir.path);
       return isar;
     }
     return Future.value(Isar.getInstance());
@@ -220,11 +223,11 @@ class DatabaseServices {
     }
   }
 
-  Future<void> crossSelfDestructTask(String taskId) async {
+  Future<void> crossSelfDestructTask({required String taskId}) async {
     final Isar dbInstance = await _db;
     final selfDestructTask = await dbInstance.selfDestructTasks
         .filter()
-        .idEqualTo(taskId as Id)
+        .taskIdEqualTo(taskId)
         .findFirst();
     if (selfDestructTask != null) {
       dbInstance.writeTxn(() async {
