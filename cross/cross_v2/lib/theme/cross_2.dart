@@ -32,6 +32,12 @@ final crossRed = ThemeData(
       fontFamily: 'JetBrainsMono',
       color: Color.fromARGB(255, 183, 183, 183),
     ),
+    labelMedium: TextStyle(
+      fontSize: 15,
+      fontFamily: 'JetBrainsMono',
+      fontWeight: FontWeight.w900,
+      color: Color.fromARGB(255, 75, 89, 117),
+    ),
     labelSmall: TextStyle(
       fontSize: 12,
       fontFamily: 'JetBrainsMono',
