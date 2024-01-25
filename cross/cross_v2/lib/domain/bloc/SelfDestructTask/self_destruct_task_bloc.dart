@@ -22,15 +22,27 @@ class SelfDestructTaskBloc
     });
 
     on<CreateNewSelfDestructTaskEvent>((event, emit) async {
-      await _databaseServices
-          .createNewSelfDestructTask(event.selfDestructTaskTitle);
+      await _databaseServices.createNewSelfDestructTask(taskTitle: event.selfDestructTaskTitle);
       add(LoadSelfDestructTasksEvent());
     });
 
     on<CrossSelfDestructTaskEvent>((event, emit) async {
-      print("called");
       await _databaseServices.crossSelfDestructTask(taskId: event.selfDestructTaskId);
-      print("this is called ${event.selfDestructTaskId}");
+      add(LoadSelfDestructTasksEvent());
+    });
+
+    on<UnCrossSelfDestructTaskEvent>((event, emit) async {
+      await _databaseServices.unCrossSelfDestructTask(taskId: event.selfDestructTaskId);
+      add(LoadSelfDestructTasksEvent());
+    });
+
+    on<DeleteSelfDestructTaskEvent>((event, emit) async {
+      await _databaseServices.deleteSelfDestructTask(taskId: event.selfDestructTaskId);
+      add(LoadSelfDestructTasksEvent());
+    });
+
+    on<ClearAllSelfDestructTask>((event, emit) async {
+      await _databaseServices.clearOldSelfDestructTask();
       add(LoadSelfDestructTasksEvent());
     });
   }

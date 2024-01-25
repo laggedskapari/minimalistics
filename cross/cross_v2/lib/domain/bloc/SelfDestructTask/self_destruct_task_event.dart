@@ -44,3 +44,8 @@ class DeleteSelfDestructTaskEvent extends SelfDestructTaskEvent {
   @override
   List<Object?> get props => [selfDestructTaskId];
 }
+
+class ClearAllSelfDestructTask extends SelfDestructTaskEvent {
+  @override
+  List<Object?> get props => [];
+}

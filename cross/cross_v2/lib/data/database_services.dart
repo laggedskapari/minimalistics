@@ -36,6 +36,7 @@ class DatabaseServices {
     if (crossConf == null) {
       createCrossConfigration(currentTheme: 'crossYellow');
     }
+    await clearOldSelfDestructTask();
   }
 
   Future<List<TaskList>> loadAllTaskLists() async {
@@ -188,7 +189,7 @@ class DatabaseServices {
     return selfDestructTasks;
   }
 
-  Future<void> createNewSelfDestructTask(String taskTitle) async {
+  Future<void> createNewSelfDestructTask({required String taskTitle}) async {
     final Isar dbInstance = await _db;
     const uuid = Uuid();
     final newSelfDestructTask = SelfDestructTask(
@@ -212,11 +213,11 @@ class DatabaseServices {
     });
   }
 
-  Future<void> deleteSelfDestructTask(String taskId) async {
+  Future<void> deleteSelfDestructTask({required String taskId}) async {
     final Isar dbInstance = await _db;
     final selfDestructTask = await dbInstance.selfDestructTasks
         .filter()
-        .idEqualTo(taskId as Id)
+        .taskIdEqualTo(taskId)
         .findFirst();
     if (selfDestructTask != null) {
       dbInstance.selfDestructTasks.delete(selfDestructTask.id);
@@ -230,22 +231,22 @@ class DatabaseServices {
         .taskIdEqualTo(taskId)
         .findFirst();
     if (selfDestructTask != null) {
-      dbInstance.writeTxn(() async {
+      await dbInstance.writeTxn(() async {
         selfDestructTask.isCompleted = true;
         await dbInstance.selfDestructTasks.put(selfDestructTask);
       });
     }
   }
 
-  Future<void> unCrossSelfDestructTask(String taskId) async {
+  Future<void> unCrossSelfDestructTask({required String taskId}) async {
     final Isar dbInstance = await _db;
     final selfDestructTask = await dbInstance.selfDestructTasks
         .filter()
-        .idEqualTo(taskId as Id)
+        .taskIdEqualTo(taskId)
         .findFirst();
     if (selfDestructTask != null) {
       selfDestructTask.isCompleted = false;
-      dbInstance.writeTxn(() async {
+      await dbInstance.writeTxn(() async {
         selfDestructTask.isCompleted = false;
         await dbInstance.selfDestructTasks.put(selfDestructTask);
       });

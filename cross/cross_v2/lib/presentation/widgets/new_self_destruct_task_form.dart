@@ -41,7 +41,7 @@ class _CreateNewSelfDestructTaskFormState extends State<NewSelfDestructTaskForm>
             IconButton(
               onPressed: () {},
               icon: Icon(
-                Icons.double_arrow,
+                Icons.double_arrow_rounded,
                 size: 30,
                 color: Theme.of(context).colorScheme.primary,
               ),
@@ -68,7 +68,7 @@ class _CreateNewSelfDestructTaskFormState extends State<NewSelfDestructTaskForm>
                 submitNewSelfDestructTask(taskTitle: _titleController.text.trim());
               },
               icon: const Icon(
-                Icons.check,
+                Icons.check_rounded,
                 size: 30,
                 color: Colors.green,
               ),

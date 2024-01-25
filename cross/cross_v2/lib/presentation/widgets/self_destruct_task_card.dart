@@ -18,8 +18,8 @@ class SelfDestructTaskCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Icon(
-              Icons.double_arrow,
-              color: Theme.of(context).colorScheme.primary,
+              (selfDestructTask.isCompleted) ? Icons.task_alt_rounded : Icons.double_arrow_rounded,
+              color: (selfDestructTask.isCompleted) ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.primary,
               size: 20,
             ),
           ),
@@ -49,6 +49,7 @@ class SelfDestructTaskCard extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'JetBrainsMono',
                 fontSize: 20,
+                fontWeight: FontWeight.w900,
                 color: (selfDestructTask.isCompleted)
                     ? Theme.of(context).colorScheme.secondary
                     : Theme.of(context).colorScheme.primary,

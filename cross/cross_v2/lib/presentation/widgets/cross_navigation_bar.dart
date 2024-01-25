@@ -26,7 +26,7 @@ class _CrossNavigationBarState extends State<CrossNavigationBar> {
         color: Theme.of(context).colorScheme.background,
       ),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: displayWidth * .2),
+        margin: EdgeInsets.symmetric(horizontal: displayWidth * .23),
         alignment: Alignment.center,
         child: ListView.builder(
           itemCount: 3,
