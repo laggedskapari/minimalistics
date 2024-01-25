@@ -22,8 +22,15 @@ class SelfDestructTasksListView extends StatelessWidget {
                       itemBuilder: (context, index) => Dismissible(
                         key: UniqueKey(),
                         direction: DismissDirection.endToStart,
-                        secondaryBackground: Container(color: Theme.of(context).colorScheme.error),
-                        background: Icon(Icons.cancel_rounded, color: Theme.of(context).colorScheme.onError),
+                        background: Container(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                          alignment: Alignment.centerRight,
+                          color: Theme.of(context).colorScheme.secondary.withOpacity(.6),
+                          child: Icon(
+                            Icons.delete_rounded,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                        ),
                         child: SelfDestructTaskCard(
                           selfDestructTask: state.selfDestructTaskList[index],
                         ),
