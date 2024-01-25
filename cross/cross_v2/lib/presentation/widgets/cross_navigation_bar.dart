@@ -54,7 +54,7 @@ class _CrossNavigationBarState extends State<CrossNavigationBar> {
                       style: TextStyle(
                         fontSize: 15,
                         fontFamily: 'JetBrainsMono',
-                        fontWeight: FontWeight.bold,
+                        fontWeight: index == currentIndex ? FontWeight.w900 : FontWeight.normal,
                         color: index == currentIndex
                             ? Theme.of(context).colorScheme.primary
                             : Theme.of(context).colorScheme.secondary,
