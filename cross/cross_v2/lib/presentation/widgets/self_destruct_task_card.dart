@@ -1,6 +1,7 @@
 import 'package:cross_v2/data/self_destruct_task.dart';
 import 'package:cross_v2/domain/bloc/SelfDestructTask/self_destruct_task_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelfDestructTaskCard extends StatelessWidget {
@@ -12,14 +13,18 @@ class SelfDestructTaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double initialOffset = 0.0;
     return Container(
-      margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Icon(
-              (selfDestructTask.isCompleted) ? Icons.task_alt_rounded : Icons.double_arrow_rounded,
-              color: (selfDestructTask.isCompleted) ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.primary,
+              (selfDestructTask.isCompleted)
+                  ? Icons.task_alt_rounded
+                  : Icons.double_arrow_rounded,
+              color: (selfDestructTask.isCompleted)
+                  ? Theme.of(context).colorScheme.secondary
+                  : Theme.of(context).colorScheme.primary,
               size: 20,
             ),
           ),
@@ -30,6 +35,7 @@ class SelfDestructTaskCard extends StatelessWidget {
             onHorizontalDragUpdate: (DragUpdateDetails details) {
               if (details.globalPosition.dx - initialOffset > 100 &&
                   !selfDestructTask.isCompleted) {
+                HapticFeedback.heavyImpact();
                 BlocProvider.of<SelfDestructTaskBloc>(context).add(
                   CrossSelfDestructTaskEvent(
                     selfDestructTaskId: selfDestructTask.taskId,
@@ -38,6 +44,35 @@ class SelfDestructTaskCard extends StatelessWidget {
               }
             },
             onDoubleTap: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                        title: const Text('//UNCROSS TASK?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              '[AFFIRMITIVE]',
+                              style: TextStyle(
+                                fontFamily: 'JetBrainsMono',
+                                fontSize: 15,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              '[DECLINE]',
+                              style: TextStyle(
+                                fontFamily: 'JetBrainsMono',
+                                fontSize: 15,
+                                color: Theme.of(context).colorScheme.error,
+                              ),
+                            ),
+                          )
+                        ],
+                      ));
               BlocProvider.of<SelfDestructTaskBloc>(context).add(
                 UnCrossSelfDestructTaskEvent(
                   selfDestructTaskId: selfDestructTask.taskId,
@@ -53,7 +88,10 @@ class SelfDestructTaskCard extends StatelessWidget {
                 color: (selfDestructTask.isCompleted)
                     ? Theme.of(context).colorScheme.secondary
                     : Theme.of(context).colorScheme.primary,
-                decoration: (selfDestructTask.isCompleted) ? TextDecoration.lineThrough : TextDecoration.none,
+                decoration: (selfDestructTask.isCompleted)
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none,
+                decorationThickness: 5,
                 decorationColor: Theme.of(context).colorScheme.secondary,
               ),
             ),

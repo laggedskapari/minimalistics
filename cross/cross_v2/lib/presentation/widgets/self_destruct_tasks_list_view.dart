@@ -23,9 +23,15 @@ class SelfDestructTasksListView extends StatelessWidget {
                         key: UniqueKey(),
                         direction: DismissDirection.endToStart,
                         background: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .secondary
+                                .withOpacity(.6),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                           alignment: Alignment.centerRight,
-                          color: Theme.of(context).colorScheme.secondary.withOpacity(.6),
                           child: Icon(
                             Icons.delete_rounded,
                             color: Theme.of(context).colorScheme.error,
