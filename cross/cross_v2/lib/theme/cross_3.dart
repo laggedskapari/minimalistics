@@ -7,7 +7,7 @@ final crossYellow = ThemeData(
     onPrimary: Color.fromARGB(255, 255, 255, 255),
     secondary: Color.fromARGB(255, 100, 102, 105),
     onSecondary: Color.fromARGB(255, 255, 255, 255),
-    error: Color.fromARGB(255, 184, 27, 44),
+    error: Color.fromARGB(250, 240, 122, 122),
     onError: Color.fromARGB(255, 255, 255, 255),
     background: Color.fromARGB(255, 50, 52, 55),
     onBackground: Color.fromARGB(255, 75, 89, 117),
