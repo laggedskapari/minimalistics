@@ -11,6 +11,9 @@ class SelfDestructTaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void unCross() {
+    };
+    
     double initialOffset = 0.0;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -47,6 +50,7 @@ class SelfDestructTaskCard extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
+                        backgroundColor: Theme.of(context).colorScheme.background,
                         title: const Text('//UNCROSS TASK?'),
                         actions: [
                           TextButton(
