@@ -25,7 +25,7 @@ class ConfirmDialogBox extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(10),
       ),
-      height: 300,
+      height: 50,
       margin: EdgeInsets.symmetric(horizontal: displayWidth * 0.02),
       child: Column(
         children: [

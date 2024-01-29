@@ -1,5 +1,6 @@
 import 'package:cross_v2/data/self_destruct_task.dart';
 import 'package:cross_v2/domain/bloc/SelfDestructTask/self_destruct_task_bloc.dart';
+import 'package:cross_v2/presentation/widgets/confirmation_dialog_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +13,13 @@ class SelfDestructTaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void unCross() {
-    };
-    
+      BlocProvider.of<SelfDestructTaskBloc>(context).add(
+        UnCrossSelfDestructTaskEvent(
+          selfDestructTaskId: selfDestructTask.taskId,
+        ),
+      );
+    }
+
     double initialOffset = 0.0;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -48,35 +54,12 @@ class SelfDestructTaskCard extends StatelessWidget {
             },
             onDoubleTap: () {
               showDialog(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                        backgroundColor: Theme.of(context).colorScheme.background,
-                        title: const Text('//UNCROSS TASK?'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              '[AFFIRMITIVE]',
-                              style: TextStyle(
-                                fontFamily: 'JetBrainsMono',
-                                fontSize: 15,
-                                color: Colors.green,
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              '[DECLINE]',
-                              style: TextStyle(
-                                fontFamily: 'JetBrainsMono',
-                                fontSize: 15,
-                                color: Theme.of(context).colorScheme.error,
-                              ),
-                            ),
-                          )
-                        ],
-                      ));
+                context: context,
+                builder: (BuildContext context) => ConfirmDialogBox(
+                    dialogTitle: '//UNCROSS TASK?',
+                    onAffirmative: unCross,
+                    onNegative: () {}),
+              );
               BlocProvider.of<SelfDestructTaskBloc>(context).add(
                 UnCrossSelfDestructTaskEvent(
                   selfDestructTaskId: selfDestructTask.taskId,
