@@ -60,7 +60,7 @@ class DatabaseServices {
     final Isar dbInstance = await _db;
     final TaskList? taskList = await dbInstance.taskLists
         .filter()
-        .idEqualTo(taskListId as Id)
+        .taskListIdEqualTo(taskListId)
         .findFirst();
     if (taskList != null) {
       await dbInstance.writeTxn(() async {
@@ -68,6 +68,7 @@ class DatabaseServices {
       });
     }
   }
+
   //Task Services
 
   Future<List<Task>> loadAllTasks({required int taskList}) async {
@@ -97,10 +98,9 @@ class DatabaseServices {
     });
   }
 
-  Future<void> deleteTask({required String id}) async {
+  Future<void> deleteTask({required String taskId}) async {
     final Isar dbInstance = await _db;
-    final Task? task =
-        await dbInstance.tasks.filter().idEqualTo(id as Id).findFirst();
+    final Task? task = await dbInstance.tasks.filter().taskIdEqualTo(taskId).findFirst();
     if (task != null) {
       dbInstance.writeTxn(() async {
         await dbInstance.tasks.delete(task.id);
@@ -108,10 +108,9 @@ class DatabaseServices {
     }
   }
 
-  Future<void> crossTask({required String id}) async {
+  Future<void> crossTask({required String taskId}) async {
     final Isar dbInstance = await _db;
-    final Task? task =
-        await dbInstance.tasks.filter().idEqualTo(id as Id).findFirst();
+    final Task? task = await dbInstance.tasks.filter().taskIdEqualTo(taskId).findFirst();
     if (task != null) {
       dbInstance.writeTxn(() async {
         task.isCompleted = true;
@@ -120,10 +119,10 @@ class DatabaseServices {
     }
   }
 
-  Future<void> unCrossTask({required String id}) async {
+  Future<void> unCrossTask({required String taskId}) async {
     final Isar dbInstance = await _db;
     final Task? task =
-        await dbInstance.tasks.filter().idEqualTo(id as Id).findFirst();
+        await dbInstance.tasks.filter().taskIdEqualTo(taskId).findFirst();
     if (task != null) {
       dbInstance.writeTxn(() async {
         task.isCompleted = false;
@@ -132,10 +131,10 @@ class DatabaseServices {
     }
   }
 
-  Future<void> toggleTaskImportance({required String id}) async {
+  Future<void> toggleTaskImportance({required String taskId}) async {
     final Isar dbInstance = await _db;
     final Task? task =
-        await dbInstance.tasks.filter().idEqualTo(id as Id).findFirst();
+        await dbInstance.tasks.filter().taskIdEqualTo(taskId).findFirst();
     if (task != null) {
       dbInstance.writeTxn(() async {
         task.isImportant = !task.isImportant;

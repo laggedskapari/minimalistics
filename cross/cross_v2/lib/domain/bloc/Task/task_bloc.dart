@@ -22,5 +22,9 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       await _databaseServices.createNewTask(taskTitle: event.taskTitle, taskList: currentState.taskList);
       add(LoadTasksEvent(taskList: currentState.taskList));
     });
+
+    on<CrossTaskEvent>((event, emit) async {
+      await _databaseServices.crossTask(id: )
+    });
   }
 }

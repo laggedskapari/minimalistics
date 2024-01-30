@@ -22,3 +22,30 @@ class CreateNewTaskEvent extends TaskEvent {
   @override
   List<Object?> get props => [taskTitle, taskList];
 }
+
+class CrossTaskEvent extends TaskEvent{
+  final String taskId;
+  
+  const CrossTaskEvent({required this.taskId});
+
+  @override
+  List<Object?> get props => [taskId];
+}
+
+class UnCrossTaskEvent extends TaskEvent {
+  final String taskId;
+
+  const UnCrossTaskEvent({required this.taskId});
+
+  @override
+  List<Object?> get props => [taskId];
+}
+
+class DeleteTaskEvent extends TaskEvent {
+  final String taskId;
+
+  const DeleteTaskEvent({required this.taskId});
+
+  @override
+  List<Object?> get props => [taskId];
+}
