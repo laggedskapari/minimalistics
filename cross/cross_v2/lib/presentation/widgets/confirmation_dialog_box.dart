@@ -14,38 +14,59 @@ class ConfirmDialogBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double displayWidth = MediaQuery.of(context).size.width;
+    double displayHeight = MediaQuery.of(context).size.height;
     return Container(
-      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
-        border: Border.all(
-          color: Theme.of(context).colorScheme.primary,
-          width: 3,
-        ),
-        borderRadius: BorderRadius.circular(10),
       ),
       height: 50,
-      margin: EdgeInsets.symmetric(horizontal: displayWidth * 0.02),
-      child: Column(
-        children: [
-          Text(
-            dialogTitle,
-            style: Theme.of(context).textTheme.labelLarge,
-          ),
-          Row(
-            children: [
-              TextButton(
-                onPressed: onAffirmative,
-                child: const Text('//AFFIRMTIVE'),
-              ),
-              TextButton(
-                onPressed: onNegative,
-                child: const Text('//NEGATIVE'),
-              ),
-            ],
-          )
-        ],
+      margin: EdgeInsets.symmetric(
+        vertical: displayHeight * .40,
+      ),
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+        child: Column(
+          children: [
+            Text(
+              dialogTitle,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  style: ButtonStyle(overlayColor: MaterialStateColor.resolveWith((states) => Colors.transparent)),
+                  onPressed: onAffirmative,
+                  child: Text(
+                    '[AFFIRMTIVE]',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w900,
+                      fontFamily: 'JetBrainsMono',
+                    ),
+                  ),
+                ),
+                TextButton(
+                  style: ButtonStyle(overlayColor: MaterialStateColor.resolveWith((states) => Colors.transparent)),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    '[NEGATIVE]',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w900,
+                      fontFamily: 'JetBrainsMono',
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
