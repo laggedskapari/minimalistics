@@ -100,9 +100,10 @@ class DatabaseServices {
 
   Future<void> deleteTask({required String taskId}) async {
     final Isar dbInstance = await _db;
-    final Task? task = await dbInstance.tasks.filter().taskIdEqualTo(taskId).findFirst();
+    final Task? task =
+        await dbInstance.tasks.filter().taskIdEqualTo(taskId).findFirst();
     if (task != null) {
-      dbInstance.writeTxn(() async {
+      await dbInstance.writeTxn(() async {
         await dbInstance.tasks.delete(task.id);
       });
     }
@@ -110,9 +111,10 @@ class DatabaseServices {
 
   Future<void> crossTask({required String taskId}) async {
     final Isar dbInstance = await _db;
-    final Task? task = await dbInstance.tasks.filter().taskIdEqualTo(taskId).findFirst();
+    final Task? task =
+        await dbInstance.tasks.filter().taskIdEqualTo(taskId).findFirst();
     if (task != null) {
-      dbInstance.writeTxn(() async {
+      await dbInstance.writeTxn(() async {
         task.isCompleted = true;
         await dbInstance.tasks.put(task);
       });
@@ -124,7 +126,7 @@ class DatabaseServices {
     final Task? task =
         await dbInstance.tasks.filter().taskIdEqualTo(taskId).findFirst();
     if (task != null) {
-      dbInstance.writeTxn(() async {
+      await dbInstance.writeTxn(() async {
         task.isCompleted = false;
         await dbInstance.tasks.put(task);
       });
@@ -136,7 +138,7 @@ class DatabaseServices {
     final Task? task =
         await dbInstance.tasks.filter().taskIdEqualTo(taskId).findFirst();
     if (task != null) {
-      dbInstance.writeTxn(() async {
+      await dbInstance.writeTxn(() async {
         task.isImportant = !task.isImportant;
         await dbInstance.tasks.put(task);
       });
