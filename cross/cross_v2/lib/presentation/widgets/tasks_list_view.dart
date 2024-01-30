@@ -1,4 +1,5 @@
 import 'package:cross_v2/domain/bloc/Task/task_bloc.dart';
+import 'package:cross_v2/presentation/widgets/confirmation_dialog_box.dart';
 import 'package:cross_v2/presentation/widgets/new_task_form.dart';
 import 'package:cross_v2/presentation/widgets/task_card.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,12 @@ class TasksListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-double displayWidth = MediaQuery.of(context).size.width;
+
+void deleteTask(int taskId){
+      BlocProvider.of<TaskBloc>(context).add();
+    }
+
+    double displayWidth = MediaQuery.of(context).size.width;
     return BlocBuilder<TaskBloc, TaskState>(
       builder: (context, state) {
         if (state is TasksLoadedState) {
@@ -24,6 +30,26 @@ double displayWidth = MediaQuery.of(context).size.width;
                     child: ListView.builder(
                       itemBuilder: (context, index) => Dismissible(
                         key: UniqueKey(),
+                        direction: DismissDirection.endToStart,
+                        confirmDismiss: (val) async {
+                          return await showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    ConfirmDialogBox(
+                                  dialogTitle: 'DELETE [${state.tasks[index].taskTitle}]?',
+                                  onAffirmative: () {
+                                    deleteSelfDestructTask(
+                                        selfDestructTaskId: state
+                                            .selfDestructTaskList[index]
+                                            .taskId);
+                                  },
+                                  onNegative: () {
+                                    Navigator.pop(context, false);
+                                  },
+                                ),
+                              ) ??
+                              false;
+                        },
                         child: TaskCard(
                           task: state.tasks[index],
                         ),
