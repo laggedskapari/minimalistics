@@ -12,9 +12,8 @@ class TasksListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-void deleteTask(int taskId){
-      BlocProvider.of<TaskBloc>(context).add();
+    void deleteTask({required String taskId}) {
+      BlocProvider.of<TaskBloc>(context).add(DeleteTaskEvent(taskId: taskId));
     }
 
     double displayWidth = MediaQuery.of(context).size.width;
@@ -36,12 +35,12 @@ void deleteTask(int taskId){
                                 context: context,
                                 builder: (BuildContext context) =>
                                     ConfirmDialogBox(
-                                  dialogTitle: 'DELETE [${state.tasks[index].taskTitle}]?',
+                                  dialogTitle:
+                                      'DELETE [${state.tasks[index].taskTitle}]?',
                                   onAffirmative: () {
-                                    deleteSelfDestructTask(
-                                        selfDestructTaskId: state
-                                            .selfDestructTaskList[index]
-                                            .taskId);
+                                    deleteTask(
+                                      taskId: state.tasks[index].taskId,
+                                    );
                                   },
                                   onNegative: () {
                                     Navigator.pop(context, false);
@@ -50,6 +49,21 @@ void deleteTask(int taskId){
                               ) ??
                               false;
                         },
+                        background: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .secondary
+                                .withOpacity(.6),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                          alignment: Alignment.centerRight,
+                          child: Icon(
+                            Icons.delete_rounded,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                        ),
                         child: TaskCard(
                           task: state.tasks[index],
                         ),

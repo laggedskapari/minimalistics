@@ -34,19 +34,22 @@ class SelfDestructTasksListView extends StatelessWidget {
                         direction: DismissDirection.endToStart,
                         confirmDismiss: (val) async {
                           return await showDialog(
-                            context: context,
-                            builder: (BuildContext context) => ConfirmDialogBox(
-                              dialogTitle: 'UNCROSS TASK?',
-                              onAffirmative: () {
-                                deleteSelfDestructTask(
-                                    selfDestructTaskId: state
-                                        .selfDestructTaskList[index].taskId);
-                              },
-                              onNegative: () {
-                                Navigator.pop(context, false);
-                              },
-                            ),
-                          )??false;
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    ConfirmDialogBox(
+                                  dialogTitle: 'UNCROSS TASK?',
+                                  onAffirmative: () {
+                                    deleteSelfDestructTask(
+                                        selfDestructTaskId: state
+                                            .selfDestructTaskList[index]
+                                            .taskId);
+                                  },
+                                  onNegative: () {
+                                    Navigator.pop(context, false);
+                                  },
+                                ),
+                              ) ??
+                              false;
                         },
                         background: Container(
                           decoration: BoxDecoration(
