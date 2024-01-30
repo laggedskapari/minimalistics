@@ -19,11 +19,6 @@ class TaskListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double displayWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: () {
-        changeTaskList(tasklist.id);
-        BlocProvider.of<TaskBloc>(context)
-            .add(LoadTasksEvent(taskList: tasklist.id));
-      },
       child: Container(
         width: displayWidth * (.91 / taskListsCount),
         decoration: BoxDecoration(
