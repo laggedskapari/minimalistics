@@ -1,6 +1,8 @@
 import 'package:cross_v2/domain/bloc/SelfDestructTask/self_destruct_task_bloc.dart';
+import 'package:cross_v2/presentation/widgets/confirmation_dialog_box.dart';
 import 'package:cross_v2/presentation/widgets/self_destruct_task_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelfDestructTasksListView extends StatelessWidget {
@@ -9,6 +11,14 @@ class SelfDestructTasksListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double displayWidth = MediaQuery.of(context).size.width;
+
+    void deleteSelfDestructTask({required String selfDestructTaskId}) {
+      BlocProvider.of<SelfDestructTaskBloc>(context).add(
+          DeleteSelfDestructTaskEvent(selfDestructTaskId: selfDestructTaskId));
+      HapticFeedback.lightImpact();
+      Navigator.pop(context);
+    }
+
     return BlocBuilder<SelfDestructTaskBloc, SelfDestructTaskState>(
       builder: (context, state) {
         if (state is SelfDestructTaskLoadedState) {
@@ -22,6 +32,20 @@ class SelfDestructTasksListView extends StatelessWidget {
                       itemBuilder: (context, index) => Dismissible(
                         key: UniqueKey(),
                         direction: DismissDirection.endToStart,
+                        onDismissed: (direction) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => ConfirmDialogBox(
+                              dialogTitle: 'UNCROSS TASK?',
+                              onAffirmative: () {
+                                deleteSelfDestructTask(selfDestructTaskId: state.selfDestructTaskList[index].taskId);
+                              },
+                              onNegative: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          );
+                        },
                         background: Container(
                           decoration: BoxDecoration(
                             color: Theme.of(context)

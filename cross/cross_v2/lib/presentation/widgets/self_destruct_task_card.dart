@@ -18,6 +18,8 @@ class SelfDestructTaskCard extends StatelessWidget {
           selfDestructTaskId: selfDestructTask.taskId,
         ),
       );
+      HapticFeedback.lightImpact();
+      Navigator.pop(context);
     }
 
     double initialOffset = 0.0;
@@ -56,13 +58,9 @@ class SelfDestructTaskCard extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => ConfirmDialogBox(
-                    dialogTitle: '//UNCROSS TASK?',
-                    onAffirmative: unCross,
-                    onNegative: () {}),
-              );
-              BlocProvider.of<SelfDestructTaskBloc>(context).add(
-                UnCrossSelfDestructTaskEvent(
-                  selfDestructTaskId: selfDestructTask.taskId,
+                  dialogTitle: 'UNCROSS TASK?',
+                  onAffirmative: unCross,
+                  onNegative: () {},
                 ),
               );
             },
