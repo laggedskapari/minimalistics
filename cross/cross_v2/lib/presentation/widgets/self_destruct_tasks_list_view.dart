@@ -16,7 +16,7 @@ class SelfDestructTasksListView extends StatelessWidget {
       BlocProvider.of<SelfDestructTaskBloc>(context).add(
           DeleteSelfDestructTaskEvent(selfDestructTaskId: selfDestructTaskId));
       HapticFeedback.lightImpact();
-      Navigator.pop(context);
+      Navigator.pop(context, true);
     }
 
     return BlocBuilder<SelfDestructTaskBloc, SelfDestructTaskState>(
@@ -32,19 +32,21 @@ class SelfDestructTasksListView extends StatelessWidget {
                       itemBuilder: (context, index) => Dismissible(
                         key: UniqueKey(),
                         direction: DismissDirection.endToStart,
-                        onDismissed: (direction) {
-                          showDialog(
+                        confirmDismiss: (val) async {
+                          return await showDialog(
                             context: context,
                             builder: (BuildContext context) => ConfirmDialogBox(
                               dialogTitle: 'UNCROSS TASK?',
                               onAffirmative: () {
-                                deleteSelfDestructTask(selfDestructTaskId: state.selfDestructTaskList[index].taskId);
+                                deleteSelfDestructTask(
+                                    selfDestructTaskId: state
+                                        .selfDestructTaskList[index].taskId);
                               },
                               onNegative: () {
-                                Navigator.pop(context);
+                                Navigator.pop(context, false);
                               },
                             ),
-                          );
+                          )??false;
                         },
                         background: Container(
                           decoration: BoxDecoration(
