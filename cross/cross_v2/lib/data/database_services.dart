@@ -220,7 +220,9 @@ class DatabaseServices {
         .taskIdEqualTo(taskId)
         .findFirst();
     if (selfDestructTask != null) {
-      dbInstance.selfDestructTasks.delete(selfDestructTask.id);
+      await dbInstance.writeTxn(() async {
+        await dbInstance.selfDestructTasks.delete(selfDestructTask.id);
+      });
     }
   }
 
