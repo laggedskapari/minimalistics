@@ -35,7 +35,7 @@ class _CreateNewTaskListFormState extends State<NewTaskListForm> {
           IconButton(
             onPressed: () {},
             icon: Icon(
-              Icons.double_arrow,
+              Icons.double_arrow_rounded,
               size: 30,
               color: Theme.of(context).colorScheme.primary,
             ),
@@ -62,7 +62,7 @@ class _CreateNewTaskListFormState extends State<NewTaskListForm> {
               submitNewTaskList(_titleController.text.trim());
             },
             icon: const Icon(
-              Icons.check,
+              Icons.check_rounded,
               size: 30,
               color: Colors.green,
             ),

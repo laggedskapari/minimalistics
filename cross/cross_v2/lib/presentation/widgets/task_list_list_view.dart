@@ -23,6 +23,7 @@ class _TaskListListViewState extends State<TaskListListView> {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: displayWidth * 0.16),
             child: ListView.builder(
+              shrinkWrap: true,
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
                   setState(
@@ -45,7 +46,9 @@ class _TaskListListViewState extends State<TaskListListView> {
                           ? Theme.of(context).colorScheme.primary
                           : Theme.of(context).colorScheme.secondary,
                       fontSize: 20,
-                      fontWeight: currentIndex == index ? FontWeight.w900 : FontWeight.normal,
+                      fontWeight: currentIndex == index
+                          ? FontWeight.w900
+                          : FontWeight.normal,
                     ),
                   ),
                 ),
