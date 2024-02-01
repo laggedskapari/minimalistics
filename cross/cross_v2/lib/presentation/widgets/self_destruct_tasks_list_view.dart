@@ -25,52 +25,66 @@ class SelfDestructTasksListView extends StatelessWidget {
           return Expanded(
             child: Column(
               children: [
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.all(displayWidth * .05),
-                    child: ListView.builder(
-                      itemBuilder: (context, index) => Dismissible(
-                        key: UniqueKey(),
-                        direction: DismissDirection.endToStart,
-                        confirmDismiss: (val) async {
-                          return await showDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    ConfirmDialogBox(
-                                  dialogTitle: 'UNCROSS TASK?',
-                                  onAffirmative: () {
-                                    deleteSelfDestructTask(
-                                        selfDestructTaskId: state
-                                            .selfDestructTaskList[index]
-                                            .taskId);
-                                  },
-                                  onNegative: () {
-                                    Navigator.pop(context, false);
-                                  },
-                                ),
-                              ) ??
-                              false;
-                        },
-                        background: Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondary
-                                .withOpacity(.6),
-                            borderRadius: BorderRadius.circular(10),
+                Visibility(
+                  visible: state.selfDestructTaskList.isNotEmpty,
+                  child: Expanded(
+                    child: Container(
+                      margin: EdgeInsets.all(displayWidth * .05),
+                      child: ListView.builder(
+                        itemBuilder: (context, index) => Dismissible(
+                          key: UniqueKey(),
+                          direction: DismissDirection.endToStart,
+                          confirmDismiss: (val) async {
+                            return await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      ConfirmDialogBox(
+                                    dialogTitle: 'UNCROSS TASK?',
+                                    onAffirmative: () {
+                                      deleteSelfDestructTask(
+                                          selfDestructTaskId: state
+                                              .selfDestructTaskList[index]
+                                              .taskId);
+                                    },
+                                    onNegative: () {
+                                      Navigator.pop(context, false);
+                                    },
+                                  ),
+                                ) ??
+                                false;
+                          },
+                          background: Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .secondary
+                                  .withOpacity(.6),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                            alignment: Alignment.centerRight,
+                            child: Icon(
+                              Icons.delete_rounded,
+                              color: Theme.of(context).colorScheme.error,
+                            ),
                           ),
-                          padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                          alignment: Alignment.centerRight,
-                          child: Icon(
-                            Icons.delete_rounded,
-                            color: Theme.of(context).colorScheme.error,
+                          child: SelfDestructTaskCard(
+                            selfDestructTask: state.selfDestructTaskList[index],
                           ),
                         ),
-                        child: SelfDestructTaskCard(
-                          selfDestructTask: state.selfDestructTaskList[index],
-                        ),
+                        itemCount: state.selfDestructTaskList.length,
                       ),
-                      itemCount: state.selfDestructTaskList.length,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: state.selfDestructTaskList.isEmpty,
+                  child: Expanded(
+                    child: Center(
+                      child: Text(
+                        '//PHEW! NO RACE AGAINST TIME TODAY!',
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
                     ),
                   ),
                 ),
@@ -78,14 +92,7 @@ class SelfDestructTasksListView extends StatelessWidget {
             ),
           );
         }
-        return Expanded(
-          child: Center(
-            child: Text(
-              '//PHEW! NO RACE AGAINST TIME TODAY!',
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-          ),
-        );
+        return const CircularProgressIndicator();
       },
     );
   }

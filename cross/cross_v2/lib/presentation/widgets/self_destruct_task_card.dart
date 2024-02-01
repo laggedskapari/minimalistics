@@ -13,13 +13,15 @@ class SelfDestructTaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void unCross() {
-      BlocProvider.of<SelfDestructTaskBloc>(context).add(
-        UnCrossSelfDestructTaskEvent(
-          selfDestructTaskId: selfDestructTask.taskId,
-        ),
-      );
-      HapticFeedback.lightImpact();
-      Navigator.pop(context);
+      if (selfDestructTask.isCompleted) {
+        BlocProvider.of<SelfDestructTaskBloc>(context).add(
+          UnCrossSelfDestructTaskEvent(
+            selfDestructTaskId: selfDestructTask.taskId,
+          ),
+        );
+        HapticFeedback.lightImpact();
+        Navigator.pop(context);
+      }
     }
 
     double initialOffset = 0.0;
