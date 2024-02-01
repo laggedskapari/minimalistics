@@ -57,6 +57,7 @@ class TaskListsConfCard extends StatelessWidget {
                           child: ListView.builder(
                             itemBuilder: (context, index) => Dismissible(
                               key: UniqueKey(),
+                              direction: DismissDirection.endToStart,
                               confirmDismiss: (val) async {
                                 return await showDialog(
                                       context: context,
