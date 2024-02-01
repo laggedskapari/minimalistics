@@ -50,13 +50,13 @@ class DatabaseServices {
     final Isar dbInstance = await _db;
     const uuid = Uuid();
     final taskList =
-        TaskList(taskListId: uuid.v4(), taskListTitle: taskListTitle);
+        TaskList(taskListId: uuid.v4(), taskListTitle: taskListTitle.toUpperCase());
     await dbInstance.writeTxn(() async {
       await dbInstance.taskLists.put(taskList);
     });
   }
 
-  Future<void> deleteTaskList(String taskListId) async {
+  Future<void> deleteTaskList({required String taskListId}) async {
     final Isar dbInstance = await _db;
     final TaskList? taskList = await dbInstance.taskLists
         .filter()
@@ -65,6 +65,7 @@ class DatabaseServices {
     if (taskList != null) {
       await dbInstance.writeTxn(() async {
         await dbInstance.taskLists.delete(taskList.id);
+        await dbInstance.tasks.filter().taskListEqualTo(taskList.id).deleteAll();
       });
     }
   }
