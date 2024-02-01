@@ -17,3 +17,12 @@ class CreateNewTaskListEvent extends TaskListEvent {
   @override
   List<Object?> get props => [taskListTitle];
 }
+
+class DeleteTaskListEvent extends TaskListEvent {
+  final String taskListId;
+
+  const DeleteTaskListEvent({required this.taskListId});
+
+  @override
+  List<Object?> get props => [taskListId];
+}

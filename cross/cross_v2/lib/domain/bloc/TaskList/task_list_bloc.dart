@@ -24,5 +24,12 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
       );
       add(LoadTaskListsEvent());
     });
+
+    on<DeleteTaskListEvent>((event, emit) async {
+      await _databaseServices.deleteTaskList(
+        taskListId: event.taskListId,
+      );
+      add(LoadTaskListsEvent());
+    });
   }
 }
