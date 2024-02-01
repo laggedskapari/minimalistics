@@ -2,6 +2,7 @@ import 'package:cross_v2/data/task.dart';
 import 'package:cross_v2/domain/bloc/Task/task_bloc.dart';
 import 'package:cross_v2/presentation/widgets/confirmation_dialog_box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TaskCard extends StatelessWidget {
@@ -44,32 +45,39 @@ class TaskCard extends StatelessWidget {
               initialOffset = details.globalPosition.dx;
             },
             onHorizontalDragUpdate: (DragUpdateDetails details) {
-              if (details.globalPosition.dx - initialOffset > 100) {
+              if (details.globalPosition.dx - initialOffset > 100 &&
+                  !task.isCompleted) {
                 BlocProvider.of<TaskBloc>(context).add(
                   CrossTaskEvent(
                     taskId: task.taskId,
                   ),
                 );
+                HapticFeedback.heavyImpact();
               }
             },
             onDoubleTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => ConfirmDialogBox(
-                  dialogTitle: 'UNCROSS [${task.taskTitle}]?',
-                  onAffirmative: unCross,
-                  onNegative: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              );
+              if (task.isCompleted) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => ConfirmDialogBox(
+                    dialogTitle: 'UNCROSS [${task.taskTitle}]?',
+                    onAffirmative: unCross,
+                    onNegative: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                );
+              }
             },
             onLongPress: () {
-              BlocProvider.of<TaskBloc>(context).add(
-                ToggleTaskImportanceEvent(
-                  taskId: task.taskId,
-                ),
-              );
+              if (!task.isCompleted) {
+                BlocProvider.of<TaskBloc>(context).add(
+                  ToggleTaskImportanceEvent(
+                    taskId: task.taskId,
+                  ),
+                );
+                HapticFeedback.vibrate();
+              }
             },
             child: Text(
               task.taskTitle,
