@@ -32,11 +32,13 @@ class TaskCard extends StatelessWidget {
               (task.isCompleted)
                   ? Icons.task_alt_rounded
                   : (task.isImportant)
-                      ? Icons.double_arrow_rounded
-                      : Icons.chevron_right_rounded,
+                      ? Icons.priority_high_rounded
+                      : Icons.double_arrow_rounded,
               color: (task.isCompleted)
                   ? Theme.of(context).colorScheme.secondary
-                  : Theme.of(context).colorScheme.primary,
+                  : (task.isImportant)
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.primary.withOpacity(.6),
               size: 20,
             ),
           ),
@@ -87,7 +89,9 @@ class TaskCard extends StatelessWidget {
                 fontWeight: FontWeight.w900,
                 color: (task.isCompleted)
                     ? Theme.of(context).colorScheme.secondary
-                    : Theme.of(context).colorScheme.primary,
+                    : (task.isImportant)
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.primary.withOpacity(.6),
                 decoration: (task.isCompleted)
                     ? TextDecoration.lineThrough
                     : TextDecoration.none,
