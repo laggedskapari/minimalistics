@@ -32,7 +32,7 @@ class TaskListsConfCard extends StatelessWidget {
           BlocBuilder<TaskListBloc, TaskListState>(builder: (context, state) {
             if (state is TaskListsLoadedState) {
               return SizedBox(
-                height: 200,
+                height: 150,
                 child: Column(
                   children: [
                     Visibility(
@@ -93,7 +93,7 @@ class TaskListsConfCard extends StatelessWidget {
                                 ),
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.all(2),
+                                padding: const EdgeInsets.all(5),
                                 child: Text(
                                   state.taskLists[index].taskListTitle,
                                   style:

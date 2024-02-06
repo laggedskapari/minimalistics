@@ -20,8 +20,14 @@ class _TaskListListViewState extends State<TaskListListView> {
     return BlocBuilder<TaskListBloc, TaskListState>(
       builder: (context, state) {
         if (state is TaskListsLoadedState) {
+          if (state.taskLists.isEmpty) {
+            return Text(
+              'ADD NEW TASK LIST IN //CONF',
+              style: Theme.of(context).textTheme.labelMedium,
+            );
+          }
           return Container(
-            margin: EdgeInsets.symmetric(horizontal: displayWidth * 0.16),
+            margin: EdgeInsets.symmetric(horizontal: displayWidth * 0.10),
             child: ListView.builder(
               shrinkWrap: true,
               itemBuilder: (context, index) => InkWell(
