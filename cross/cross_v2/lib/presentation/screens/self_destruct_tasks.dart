@@ -1,6 +1,6 @@
-import 'package:cross_v2/presentation/widgets/countdown_timer_card.dart';
-import 'package:cross_v2/presentation/widgets/new_self_destruct_task_form.dart';
-import 'package:cross_v2/presentation/widgets/self_destruct_tasks_list_view.dart';
+import 'package:cross_v2/presentation/widgets/24h/countdown_timer_card.dart';
+import 'package:cross_v2/presentation/widgets/24h/new_self_destruct_task_form.dart';
+import 'package:cross_v2/presentation/widgets/24h/self_destruct_tasks_list_view.dart';
 import 'package:flutter/material.dart';
 
 class SelfDestructTasks extends StatelessWidget {

@@ -1,9 +1,9 @@
-import 'package:cross_v2/data/cross_configration.dart';
-import 'package:cross_v2/data/self_destruct_task.dart';
+import 'package:cross_v2/data/CrossConfigrations/cross_configration.dart';
+import 'package:cross_v2/data/SelfDestructTask/self_destruct_task.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:cross_v2/data/task_list.dart';
-import 'package:cross_v2/data/task.dart';
+import 'package:cross_v2/data/TaskList/task_list.dart';
+import 'package:cross_v2/data/Task/task.dart';
 import 'package:uuid/uuid.dart';
 
 class DatabaseServices {

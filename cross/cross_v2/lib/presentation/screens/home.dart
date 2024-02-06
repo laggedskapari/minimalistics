@@ -6,7 +6,7 @@ import 'package:cross_v2/presentation/screens/cross_conf.dart';
 import 'package:cross_v2/presentation/screens/self_destruct_tasks.dart';
 import 'package:cross_v2/presentation/widgets/cross_app_bar.dart';
 import 'package:cross_v2/presentation/widgets/cross_navigation_bar.dart';
-import 'package:cross_v2/presentation/widgets/tasks_page.dart';
+import 'package:cross_v2/presentation/widgets/Home/tasks_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

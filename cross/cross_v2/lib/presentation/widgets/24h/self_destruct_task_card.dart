@@ -1,4 +1,4 @@
-import 'package:cross_v2/data/self_destruct_task.dart';
+import 'package:cross_v2/data/SelfDestructTask/self_destruct_task.dart';
 import 'package:cross_v2/domain/bloc/SelfDestructTask/self_destruct_task_bloc.dart';
 import 'package:cross_v2/presentation/widgets/confirmation_dialog_box.dart';
 import 'package:flutter/material.dart';

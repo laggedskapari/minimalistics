@@ -1,5 +1,5 @@
-import 'package:cross_v2/presentation/widgets/task_list_list_view.dart';
-import 'package:cross_v2/presentation/widgets/tasks_list_view.dart';
+import 'package:cross_v2/presentation/widgets/Home/task_list_list_view.dart';
+import 'package:cross_v2/presentation/widgets/Home/tasks_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cross_v2/data/database_services.dart';
-import 'package:cross_v2/data/self_destruct_task.dart';
+import 'package:cross_v2/data/SelfDestructTask/self_destruct_task.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 

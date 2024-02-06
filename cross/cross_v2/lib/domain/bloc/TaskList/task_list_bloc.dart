@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:cross_v2/data/task_list.dart';
+import 'package:cross_v2/data/TaskList/task_list.dart';
 import 'package:cross_v2/data/database_services.dart';
 
 part 'task_list_event.dart';

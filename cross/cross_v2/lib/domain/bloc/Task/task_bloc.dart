@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:cross_v2/data/task.dart';
+import 'package:cross_v2/data/Task/task.dart';
 import 'package:cross_v2/data/database_services.dart';
 
 part 'task_event.dart';

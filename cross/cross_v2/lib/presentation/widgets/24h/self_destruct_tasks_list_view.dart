@@ -1,6 +1,6 @@
 import 'package:cross_v2/domain/bloc/SelfDestructTask/self_destruct_task_bloc.dart';
 import 'package:cross_v2/presentation/widgets/confirmation_dialog_box.dart';
-import 'package:cross_v2/presentation/widgets/self_destruct_task_card.dart';
+import 'package:cross_v2/presentation/widgets/24h/self_destruct_task_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

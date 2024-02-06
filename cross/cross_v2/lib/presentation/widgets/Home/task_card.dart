@@ -1,4 +1,4 @@
-import 'package:cross_v2/data/task.dart';
+import 'package:cross_v2/data/Task/task.dart';
 import 'package:cross_v2/domain/bloc/Task/task_bloc.dart';
 import 'package:cross_v2/presentation/widgets/confirmation_dialog_box.dart';
 import 'package:flutter/material.dart';
