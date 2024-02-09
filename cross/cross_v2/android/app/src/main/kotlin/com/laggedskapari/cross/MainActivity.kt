@@ -1,4 +1,4 @@
-package com.example.cross_v2
+package com.laggedskapari.cross
 
 import io.flutter.embedding.android.FlutterActivity
 
