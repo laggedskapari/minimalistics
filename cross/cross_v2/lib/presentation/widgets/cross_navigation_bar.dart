@@ -30,6 +30,7 @@ class _CrossNavigationBarState extends State<CrossNavigationBar> {
         alignment: Alignment.center,
         child: ListView.builder(
           itemCount: 3,
+          shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           padding: EdgeInsets.symmetric(horizontal: displayWidth * .02),
           itemBuilder: (context, index) => InkWell(
