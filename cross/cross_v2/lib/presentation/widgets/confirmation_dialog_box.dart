@@ -16,6 +16,7 @@ class ConfirmDialogBox extends StatelessWidget {
   Widget build(BuildContext context) {
     double displayHeight = MediaQuery.of(context).size.height;
     return Container(
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
       ),
@@ -24,7 +25,10 @@ class ConfirmDialogBox extends StatelessWidget {
         vertical: displayHeight * .40,
       ),
       child: Container(
+        alignment: Alignment.center,
+        height: 50,
         margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+        decoration: BoxDecoration(border: Border.all(color: Colors.red, width: 3)),
         child: Column(
           children: [
             Text(
