@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "81953872588",
+    "project_id": "logs-laggedskapari",
+    "storage_bucket": "logs-laggedskapari.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81953872588:android:3ab48f1f46e23d5fa18069",
+        "android_client_info": {
+          "package_name": "com.example.logs"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBREDC8-xaA4StvJBuMrpJvkHK1ua9kN5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
