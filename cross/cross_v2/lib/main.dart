@@ -7,7 +7,8 @@ import 'package:flutter/services.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(const CrossApp()));
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(const CrossApp()));
 }
 
 class CrossApp extends StatelessWidget {
@@ -23,16 +24,18 @@ class CrossApp extends StatelessWidget {
         create: (context) =>
             ThemeBloc(RepositoryProvider.of<DatabaseServices>(context))
               ..add(SetDefaultThemeEvent()),
-        child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
-          if (state is ThemeSetState) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: state.themeData,
-              home: const Home(),
-            );
-          }
-          return const CircularProgressIndicator();
-        }),
+        child: BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (context, state) {
+            if (state is ThemeSetState) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: state.themeData,
+                home: const Home(),
+              );
+            }
+            return const CircularProgressIndicator();
+          },
+        ),
       ),
     );
   }
