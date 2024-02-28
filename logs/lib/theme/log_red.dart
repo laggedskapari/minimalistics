@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final crossRed = ThemeData(
+final logRed = ThemeData(
   colorScheme: const ColorScheme(
     brightness: Brightness.dark,
     primary: Color.fromARGB(255, 255, 54, 13),
