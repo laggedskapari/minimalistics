@@ -1,13 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:logs/domain/repository/database_services.dart';
 
 class AuthenticationService {
   final FirebaseAuth _logFirebaseAuth = FirebaseAuth.instance;
 
   Future<void> signUp({required String email, required String passkey}) async {
     try {
-      await _logFirebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: passkey);
+      final userCredentials =
+          await _logFirebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: passkey,
+      );
+      await DatabaseServices().createNewLogUser(
+        username: 'lagged',
+        logId: userCredentials.user!.uid,
+      );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-code') {
         throw Exception('//passkey is weak.');
@@ -43,7 +51,7 @@ class AuthenticationService {
       idToken: googleAuth?.idToken,
     );
 
-   await _logFirebaseAuth.signInWithCredential(credential);
+    await _logFirebaseAuth.signInWithCredential(credential);
   }
 
   Future<void> signOut() async {
