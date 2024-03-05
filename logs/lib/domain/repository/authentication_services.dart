@@ -7,15 +7,15 @@ class AuthenticationService {
 
   Future<void> signUp({required String email, required String passkey}) async {
     try {
-      final userCredentials =
-          await _logFirebaseAuth.createUserWithEmailAndPassword(
+      await _logFirebaseAuth
+          .createUserWithEmailAndPassword(
         email: email,
         password: passkey,
-      );
-      await DatabaseServices().createNewLogUser(
-        username: 'lagged',
-        logId: userCredentials.user!.uid,
-      );
+      )
+          .then((value) {
+        DatabaseServices()
+            .createNewLogUser(username: 'lagged', logId: value.user!.uid);
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-code') {
         throw Exception('//passkey is weak.');
