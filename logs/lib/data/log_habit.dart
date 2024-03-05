@@ -1,7 +1,7 @@
 class LogHabit {
   String habitTitle;
   String habitDescription;
-  String createdOn;
+  DateTime createdOn;
   int freezes;
   String createdBy;
   bool isSuccess;
