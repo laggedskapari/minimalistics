@@ -38,4 +38,14 @@ class HabitDatabaseServices {
         .then((value) => print('Successfully updated doc.'))
         .onError((error, _) => print(error));
   }
+
+  Future<void> completeHabit({required String username, required String habitId}) {
+    return _userRef
+        .doc(username)
+        .collection('habits')
+        .doc(habitId)
+        .update({'isSuccess': true})
+        .then((value) => print('Successfully updated doc.'))
+        .onError((error, _) => print(error));
+  }
 }
