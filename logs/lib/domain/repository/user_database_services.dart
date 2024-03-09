@@ -42,8 +42,6 @@ class UserDatabaseServices {
     }
   }
 
-  Future<void> deleteLogUser({String logId}) {}
-
   Future<void> updateUserPoints({
     required String username,
     required int points,
