@@ -1,4 +1,5 @@
 class LogHabit {
+  String habitId;
   String habitTitle;
   String habitDescription;
   int timePeriod;
@@ -10,6 +11,7 @@ class LogHabit {
   bool isSuccess;
 
   LogHabit({
+    required this.habitId,
     required this.habitTitle,
     required this.habitDescription,
     required this.createdBy,
