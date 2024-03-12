@@ -2,8 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:logs/data/log_habit.dart';
 
 class HabitDatabaseServices {
-  final CollectionReference _userRef =
-      FirebaseFirestore.instance.collection('users');
+  final CollectionReference _userRef = FirebaseFirestore.instance.collection('users');
+
+  Stream<List<LogHabit>> getHabits({required String username}) {
+    return _userRef.doc(username).collection('habits').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        return LogHabit(
+          timePeriod: data['timePeriod'],
+          habitTitle: data['title'],
+          habitDescription: data['desc'],
+          createdBy: data['createdBy'],
+          streak: data['streak'],
+          daysLeft: data['daysleft'],
+          freezes: data['freezes'],
+          createdOn: data['createdOn'],
+          isSuccess: data['isSuccess'],
+        );
+      }).toList();
+    });
+  }
 
   Future<void> addNewHabit({
     required String username,
