@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:logs/domain/repository/authentication_services.dart';
+import 'package:logs/data/log_challenge.dart';
+import 'package:logs/domain/repository/challenge_database_services.dart';
 import 'firebase_options.dart';
-import 'package:logs/domain/repository/database_services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +22,20 @@ void main() async {
             height: 100,
             child: IconButton(
               onPressed: () {
-                AuthenticationService().signUp(email: 'test@test.com', passkey: 'helloMf');
+                LogChallenge newChall = LogChallenge(
+                  challengeTitle: 'hel',
+                  challengeDescription: 'hel',
+                  daysLeft: 10,
+                  timePeriod: 20,
+                  createdOn: DateTime.now(),
+                  createdBy: 'yo',
+                  freezeCount: 2,
+                  contenderList: ['yo', 'pro', 'go'],
+                );
+                ChallengeDatabaseServices().addNewChallenge(
+                  username: 'yo',
+                  newChallenge: newChall,
+                );
               },
               icon: const Icon(
                 Icons.arrow_right,
