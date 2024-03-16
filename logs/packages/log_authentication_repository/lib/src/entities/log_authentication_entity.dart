@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class LogAuthenticationEntity extends Equatable {
-  final String logId;
+  final String logUserId;
   final String email;
   final String firstName;
   final String lastName;
@@ -11,7 +11,7 @@ class LogAuthenticationEntity extends Equatable {
   final int failures;
 
   const LogAuthenticationEntity({
-    required this.logId,
+    required this.logUserId,
     required this.email,
     required this.firstName,
     required this.lastName,
@@ -23,7 +23,7 @@ class LogAuthenticationEntity extends Equatable {
 
   Map<String, Object?> toDocument() {
     return {
-      'logId': logId,
+      'logId': logUserId,
       'email': email,
       'firstName': firstName,
       'lastName': lastName,
@@ -36,7 +36,7 @@ class LogAuthenticationEntity extends Equatable {
 
   static LogAuthenticationEntity fromDocument(Map<String, dynamic> doc) {
     return LogAuthenticationEntity(
-      logId: doc['logId'],
+      logUserId: doc['logUserId'],
       email: doc['email'], 
       firstName: doc['firstName'],
       lastName: doc['lastName'],
@@ -48,5 +48,5 @@ class LogAuthenticationEntity extends Equatable {
   }
 
   @override
-  List<Object?> get props => [logPoints, logId, username, email, firstName, lastName, successes, failures];
+  List<Object?> get props => [logPoints, logUserId, username, email, firstName, lastName, successes, failures];
 }
