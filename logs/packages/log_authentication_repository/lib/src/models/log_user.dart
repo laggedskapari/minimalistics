@@ -1,9 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
 import 'package:log_authentication_repository/src/entities/log_authentication_entity.dart';
 
 class LogUser extends Equatable {
-  final String logId;
+  final String logUserId;
   final String username;
   final String email;
   final String firstName;
@@ -14,7 +13,7 @@ class LogUser extends Equatable {
 
   const LogUser({
     required this.email,
-    required this.logId,
+    required this.logUserId,
     required this.username,
     required this.firstName,
     required this.lastName,
@@ -24,7 +23,7 @@ class LogUser extends Equatable {
   });
 
   static const emptyLogUser = LogUser(
-    logId: '',
+    logUserId: '',
     email: '',
     username: '',
     firstName: '',
@@ -32,7 +31,7 @@ class LogUser extends Equatable {
   );
 
   LogUser copyWith({
-    String? logId,
+    String? logUserId,
     String? email,
     String? username,
     String? firstName,
@@ -43,7 +42,7 @@ class LogUser extends Equatable {
   }) {
     return LogUser(
       email: email ?? this.email,
-      logId: logId ?? this.logId,
+      logUserId: logUserId ?? this.logUserId,
       username: username ?? this.username,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
@@ -55,7 +54,7 @@ class LogUser extends Equatable {
 
   LogAuthenticationEntity toAuthenticationEntity() {
     return LogAuthenticationEntity(
-      logId: logId,
+      logUserId: logUserId,
       email: email,
       firstName: firstName,
       lastName: lastName,
@@ -69,7 +68,7 @@ class LogUser extends Equatable {
   static LogUser fromAuthenticationEntity(LogAuthenticationEntity entity) {
     return LogUser(
       email: entity.email,
-      logId: entity.logId,
+      logUserId: entity.logUserId,
       username: entity.username,
       firstName: entity.firstName,
       lastName: entity.lastName,
@@ -77,6 +76,6 @@ class LogUser extends Equatable {
   }
 
   @override
-  List<Object?> get props => [logId, username, firstName, lastName, logPoints, successes, failures, email];
+  List<Object?> get props => [logUserId, username, firstName, lastName, logPoints, successes, failures, email];
 }
 
