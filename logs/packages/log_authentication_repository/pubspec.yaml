@@ -1,0 +1,17 @@
+name: log_authentication_repository
+description: handles the authentication for log users
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  equatable: ^2.0.5
+  firebase_auth: ^4.17.6
+  cloud_firestore: ^4.15.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
